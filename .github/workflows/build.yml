@@ -16,3 +16,7 @@ jobs:
         run: |
           latexmk -pdf main.tex
           ls
+      - uses: actions/upload-artifact@v2
+        with:
+          name: praca
+          path: main.pdf
