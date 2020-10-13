@@ -1,14 +1,14 @@
-%% wersja 3.0 -- nowy uk³ad stron tyt.
+%% wersja 3.0 -- nowy ukï¿½ad stron tyt.
 %% wersja 2.3
-%% wersja 2.2 -- poprawka -- usuni©cie kropki po numerze rozdziaˆu
+%% wersja 2.2 -- poprawka -- usuniï¿½cie kropki po numerze rozdziaï¿½u
 %%               przy komendzie "\rozdzialy" (8 I 2004r.)
 %% wersja 2.3 -- zmiana koncepcji kropki aby uzyskac zgodnosc z amsmath 
 %% wersja 2.4 -- dodane komendy \wnioski \rysunki 
 %%               \sectionRysunki \subsectionRysunki
 %%              oraz inne zachowanie pustego \caption{}
 %%              (10.05.2005r.)
-%% wersja 2.5 -- kierunek z du¿ej litery, praca licencjacka
-%%               oraz komenda pozwalaj¹ca na rozszerzani komend typu \rysunki, \wnioski.. 
+%% wersja 2.5 -- kierunek z duï¿½ej litery, praca licencjacka
+%%               oraz komenda pozwalajï¿½ca na rozszerzani komend typu \rysunki, \wnioski.. 
 %%              \dodatkowo{nazwa}
 %%           
 %% wersja 2.6 -- inaczej prace 
@@ -670,7 +670,7 @@
       #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
     \endgroup
   \fi}
-%% poprawki szeroko˜ci
+%% poprawki szerokoï¿½ci
 %\newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
 \newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.8em}}
 %\newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
@@ -721,7 +721,7 @@
 \newenvironment{thebibliography}[1]
      {\section*{\refname
 %%
-%% wyniesione ni¿ej 30 V 2006, ¿eby dzia³o z hyperref.sty
+%% wyniesione niï¿½ej 30 V 2006, ï¿½eby dziaï¿½o z hyperref.sty
 %%     
 %        \addcontentsline{toc}{section}{\refname}%
         \markboth{\MakeUppercase\refname\liniaA}{\liniaB\MakeUppercase\refname}%
@@ -745,7 +745,7 @@
       \endlist}
 
 
-%%% do test¢w \twocolumn
+%%% do testï¿½w \twocolumn
 \def \twocolumn {%
   \clearpage
   \global\columnwidth\textwidth
@@ -999,7 +999,7 @@
 \gdef\kernsubsubsekcyjny{}
 \global\let\savenumberline\numberline
 \def\numberline##1{\hbox{##1. }}
-%% zwi¹zane z mo¿liwoœci¹ pisania Rozdzia³ 1. itd
+%% zwiï¿½zane z moï¿½liwoï¿½ciï¿½ pisania Rozdziaï¿½ 1. itd
 \def\numberlineN##1{\hbox{##1. }}
 \def\numberlineR##1{\hbox{Rozdzia\l \ ##1. }}
 
@@ -1020,14 +1020,14 @@ kieruj\k acy projektem: \@promotor
 %\vskip2cm
 
 \t@mpnumer=0
-%%TODO: zmieniæ na ?
+%%TODO: zmieniï¿½ na ?
 %%%\begin{tabular}{rlp{10cm}}
 \begingroup
 %\leftskip=2cm
 \parindent=0pt
 
 %\wypisz@autorowcdx
-autor: \csname aut@@or1\endcsname % \wypisz@autorowcd
+autorzy: \csname aut@@or1\endcsname, \csname aut@@or2\endcsname, \csname aut@@or3 \endcsname % \wypisz@autorowcd
 
 
 \endgroup
@@ -1269,7 +1269,7 @@ Jednocze\'snie o\'swiadczam, \.ze ww. projekt:
 }
 \def\GornaczescSytronyTyT{%
          \begin{center}\fontnag
-%% poprawka spowodowana zmian¹ nazwy uczelni
+%% poprawka spowodowana zmianï¿½ nazwy uczelni
 %%         Politechnika \'Sl\k aska w Gliwicach\\
                   Politechnika \'Sl\k aska\\
                   %%
@@ -1422,7 +1422,7 @@ Jednocze\'snie o\'swiadczam, \.ze ww. projekt:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  r¢wnania
+%  rï¿½wnania
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \let\PrzedSection\relax
@@ -1455,7 +1455,7 @@ Jednocze\'snie o\'swiadczam, \.ze ww. projekt:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  sekcja do nagˆ¢wka
+%  sekcja do nagï¿½ï¿½wka
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\ustawKernyNorm{
@@ -1651,13 +1651,13 @@ Jednocze\'snie o\'swiadczam, \.ze ww. projekt:
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%         WYJAŒNIENIA                                       %%
+%%         WYJAï¿½NIENIA                                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\wyjasnienia{
 
 \noindent
 w preambule (czyli przed \texttt{\char`\\begin\char`\{document\char`\}}) musz\k a by\'c 
-u\.zyte nast\k epuj\k ace komendy (przyk³adowo)
+u\.zyte nast\k epuj\k ace komendy (przykï¿½adowo)
 
 \smallskip
 
@@ -1671,7 +1671,7 @@ u\.zyte nast\k epuj\k ace komendy (przyk³adowo)
 Dla ka\.zdego autora (liczba 12 jest procentem wk\l adu pracy)
 
 \texttt{\char`\\autor\char`\{Tomasz Xsi\'nski\char`\}\char`\{12\char`\}
-\char`\{Opis wk³adu pracy\char`\}
+\char`\{Opis wkï¿½adu pracy\char`\}
 }
 
 \bigskip
@@ -1744,7 +1744,7 @@ Inne ciekawe komendy (ich nazwa powinna wyja\'sni\'c zastosowanie)
 
 U\.zyj komendy \texttt{\char`\\bezWyjasnien} aby nie drukowa\'c tej strony
 
-Pytania i uwagi prosz\k e kierowaæ na adres: \texttt{marek.zabka@polsl.pl}
+Pytania i uwagi prosz\k e kierowaï¿½ na adres: \texttt{marek.zabka@polsl.pl}
 
 }
 
@@ -1767,7 +1767,7 @@ Pytania i uwagi prosz\k e kierowaæ na adres: \texttt{marek.zabka@polsl.pl}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% \mathindent=45pt gdy  wzory do lewej i numery do lewej
-%%    Poprawic zale¾no˜† od sposobu numerowania wzor¢w
+%%    Poprawic zaleï¿½noï¿½ï¿½ od sposobu numerowania wzorï¿½w
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
