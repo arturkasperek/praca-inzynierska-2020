@@ -1027,7 +1027,7 @@ kieruj\k acy projektem: \@promotor
 \parindent=0pt
 
 %\wypisz@autorowcdx
-autorzy: \csname aut@@or1\endcsname, \csname aut@@or2\endcsname, \csname aut@@or3 \endcsname % \wypisz@autorowcd
+autorzy: \csname aut@@or1\endcsname, \csname aut@@or2\endcsname, \csname aut@@or3\endcsname
 
 
 \endgroup
