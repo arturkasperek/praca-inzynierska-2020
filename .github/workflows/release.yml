@@ -15,10 +15,19 @@ jobs:
           latexmk -pdf main.tex
           mkdir build
           mv main.pdf build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-files
+          path: build
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: build-files
+          path: .
+      - run: ls
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
