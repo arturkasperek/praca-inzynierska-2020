@@ -15,6 +15,9 @@ jobs:
           latexmk -pdf main.tex
           mkdir build
           mv main.pdf build
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
