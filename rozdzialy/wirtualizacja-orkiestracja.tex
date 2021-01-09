@@ -43,7 +43,7 @@ Zaletą tego podejścia jest brak konieczności utrzymywania serwerowni ale wci�
 Dzięki chumurom możemy dynamicznie skalować nasze wirtualne maszyny, jedynym ograniczeniem są koszty jakie jesteśmy w stanie ponieść. Dostawaca jedynie dostarcza wirtualne maszyny, natomiast koniecznym wciąż jest zarządzanie całym oprogramowaniem, siecią, zaopatrzeniem, aktualizacją, itp. Wiele firm wciąż wybiera to rozwiązanie dlatgo powstały narzędzia jak Terraform, Chef, Puppet, Salt oraz wiele innych by ten proces maksymalnie uprościć. 
 Podejściem tym jednak wciąż zgadzamy się na konsekwencje jakie niesie ze sobą uruchamianie jednego wystemu operacyjnego w drugim. Czy nie było by super gdybyśmy mogli wykorzystać system operacyjny hosta bez obawy, że marnujemy tak cenne zasoby naszego komputera? To właśnie było motywacją do powstania kontynerów czyli sposobu na budowanie infrastruktury dziś. 
 \subsection{Kontynery}
-Jak pewnie można sobie wyobrazić, kontynery dają nam wiele korzyści które niesie ze sobą wirtualna maszyna takie jak bezpieczeństwo oraz zarządzanie zasobami ale bez marnowania zasobów na system operacyjny. W kontynerach system operacyjny jest zastąpiony trzeba możliwościami jakie daje linux: chroot, namespace oraz cgroup by oddzielić między sobą wrażliwe komponenty na naszej maszynie.
+Jak pewnie można sobie wyobrazić, kontynery dają nam wiele korzyści które niesie ze sobą wirtualna maszyna takie jak bezpieczeństwo oraz zarządzanie zasobami ale bez marnowania zasobów na system operacyjny. W kontynerach system operacyjny jest zastąpiony trzema możliwościami jakie daje linux: chroot, namespace oraz cgroup by oddzielić między sobą wrażliwe komponenty na naszej maszynie.
 Żeby dobrze rozumieć czym jest kontyner oraz jak dużym krokiem na przód są dzisiejsze narzędzia do tworzenia kontynerów, w daleszej części pracy stworzę kontyner "ręcznie" wykorzystując wyżej wymienione filary kontynera. Wykonywane komendy będą uruchamiane na Ubuntu 18.04.3 LTS
 
 \subsection{Chroot}
@@ -103,7 +103,7 @@ Jak można zauważyć pisanie wszystkiego ręcznie nie jest trywialnym zadaniem.
 \subsection{Obraz Dockera}
 Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization Is the New Virtualization", Obraz Dockera jest to plik złożony z kilku warst, który jest używany do wykonywania kodu w kontynerze. Jak pisze James, obraz jest zasadniczo zbudowany na podstawie instrukcji dla kompletnej i wykonywalnej wersji aplikacji, która opiera się na jądrze systemu operacyjnego hosta. Kiedy użytkownik Docker uruchamia obraz, może on stać się jedną lub wieloma instancjami tego kontenera.
 \subsection{Obraz Dockera bez Dockera}
-\begin{verbatim}
+\begin{lstlisting}
     # uruchomienie kontynera Dockera z uruchomionym dockerem połączonym do docker deamona
     docker run -ti -v /var/run/docker.sock:/var/run/docker.sock --privileged --rm --name docker-host docker:18.06.1-ce
 
@@ -123,12 +123,12 @@ Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization 
     mount -t sysfs none /sys
     mount -t tmpfs none /tmp
 
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Docker Image z Dockerem}
 docker run -it alpine:3.10
 
 Przykład ten dobrze ilustruje jak ważną rolę w procesie automatyzacji budowy kontynerów odgrywa Docker.
-Docker oczywiście nie jest jedynym rozwiązaniem usprawniającym działanie kontynerów. Na rynku istnieją również takie rozwiązania jak Vagrant, Wox, Rancher, Apache Mesos, LXC Linux Container oraz wiele inncyh. Każde rozwiązanie jest różne ale koncept pozostaje ten sam. Większość rynek jednak na moment korzysta z rozwiązania firmy Docker Inc. czyli Docker.
+Docker oczywiście nie jest jedynym rozwiązaniem usprawniającym działanie kontynerów. Na rynku istnieją również takie rozwiązania jak Vagrant, Wox, Apache Mesos, LXC Linux Container oraz wiele inncyh. Każde rozwiązanie jest różne ale koncept pozostaje ten sam. Większość rynek jednak na moment korzysta z rozwiązania firmy Docker Inc. czyli Docker.
 
 
