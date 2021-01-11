@@ -1,0 +1,26 @@
+node {
+	    
+	    def mvnHome = tool 'maven-3.6.3'
+	    def dockerImage
+	    def dockerImageTag = "pracainzynierka${env.BUILD_NUMBER}"
+		def DOCKER_FILES_DIR = "./initial"
+		def dockerfile = "Dockerfile"
+	    
+	    stage('Clone Repo') {
+	      git 'https://github.com/arturkasperek/praca-inzynierska-2020.git'         
+	      mvnHome = tool 'maven-3.6.3'
+	    }    
+	  
+	    stage('Build Project') {
+	      sh "'${mvnHome}/bin/mvn' clean install -f ./initial/pom.xml"
+	    }
+			
+	    stage('Build Docker Image') {
+	      dockerImage = docker.build("pracainzynierka:${env.BUILD_NUMBER}", "-f ${DOCKER_FILES_DIR}/${dockerfile} ${DOCKER_FILES_DIR}")
+	    }
+	   
+	    stage('Deploy Docker Image'){
+	      echo "Docker Image Tag Name: ${dockerImageTag}"
+		  sh "docker run pracainzynierka:${env.BUILD_NUMBER} -p 2222:2222 "
+	    }
+}
