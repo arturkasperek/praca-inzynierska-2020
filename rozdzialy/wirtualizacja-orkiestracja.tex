@@ -104,16 +104,16 @@ Jak można zauważyć pisanie wszystkiego ręcznie nie jest trywialnym zadaniem.
 Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization Is the New Virtualization", Obraz Dockera jest to plik złożony z kilku warst, który jest używany do wykonywania kodu w kontynerze. Jak pisze James, obraz jest zasadniczo zbudowany na podstawie instrukcji dla kompletnej i wykonywalnej wersji aplikacji, która opiera się na jądrze systemu operacyjnego hosta. Kiedy użytkownik Docker uruchamia obraz, może on stać się jedną lub wieloma instancjami tego kontenera.
 \subsection{Obraz Dockera bez Dockera}
 \begin{lstlisting}
-    # uruchomienie kontynera Dockera z uruchomionym dockerem połączonym do docker deamona
+    # uruchomienie kontynera Dockera z uruchomionym dockerem polaczonym do docker deamona
     docker run -ti -v /var/run/docker.sock:/var/run/docker.sock --privileged --rm --name docker-host docker:18.06.1-ce
 
     # uruchamianie kontynera apline 
     docker run --rm -dit --name my-alpine alpine:3.10 sh
 
-    # eksportowanie systemu plików kontynera
+    # eksportowanie systemu plikow kontynera
     docker export -o dockercontainer.tar my-alpine
 
-    # stworzenie katalogu container-root oraz wypakowanie zawartości dockercontainer.tar do tego katalogu
+    # stworzenie katalogu container-root oraz wypakowanie zawartosci dockercontainer.tar do tego katalogu
     mkdir container-root
     tar xf dockercontainer.tar -C container-root/
 
