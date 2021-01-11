@@ -200,9 +200,213 @@ Dzięki zapewnieniu modułowości, GitHub Actions może pochwalić się dużą b
   \item zaproxy/action-baseline - jest to akcja, która jest oparta o użycie narzędzia ZAP - to program, który analizuje nasz kod pod względem różnorakich luk bezpieczeństwa. Finalnie jeżeli akcja w wyniku swojego działania znajdzie jakieś podatności to tworzy automatycznie \textit{issue} (system na GitHub'ie, który pozwala śledzić błędy). Jest to ciekawa opcja, jeżeli chcemy jak najbardziej zabezpieczyć się przed ewentualnymi atakami hackerów.
 \end{itemize}
 Wszystkie powyższe rzeczy moglibyśmy wykonać, używając akcji, która odpala skrypt bash'owy. Takie podejście jednak miałoby sporo wad - bylibyśmy zmuszeni spędzić sporo czasu, by wszystko zgrać tak jak chcemy. Dodatkowo prawdopodobnie nie pokrylibyśmy różnych przypadków brzegowych. Dzięki gotowym akcjom czas konfiguracji środowiska do automatyzacji skraca się do minimum, a my możemy się skupić na rozwiązywaniu innych problemów.
+\subsection{Program graficzny używający WinAPI - przykład użycia GitLab CI}
+Programy z interfejsem graficznym stanowią "lwią" część dostępnych programów dla systemu operacyjnego Windows. Jedną z dróg by tworzyć aplikacje dla Windows'a jest użycie interfejsu programistycznego WinAPI. Sam interfejs WinAPI został zaprojektowany by dobrze działać z językiem programowania C - \cite{WinAPI} aczkolwiek może być on wykorzystywany przez inne języki. Przykładem jest tutaj język C\# który umożliwia tworzenie aplikacji z wykorzystaniem WinAPI. 
+\par
+Jedną z ważnych rzeczy dla systemu Windows jest komunikacja między poszczególnymi oknami graficznymi. Windows zapewnia nam specjalny interfejs który pozwala wysyłać wiadomośći między poszczególnymi oknami. Funkcja która pozwala wysyłać takowe wiadomości nazywa się \textit{SendMessage}. Funkcja ta przyjmuje następujące argumentu:
+\begin{itemize}
+  \item HWND hWnd - uchwyt do okna które ma otrzymać wiadomość, jeżeli parametr jest równy informację dostaną wszystkie okna wyższczego rzędu,
+  \item UINT Msg - typ wiadomości którą chcemy wysłać,
+  \item WPARAM wParam - dodatkowy obiekt z danymi zależny od typu wiadomości,
+  \item LPARAM lParam - dodatkowy obiekt z danymi zależny od typu wiadomości
+\end{itemize}
+Niektóre Windows'owe programy graficzne za pomocą tej funkcji wysyłają wszelakie logi do aplikacji trzecich. Aplikacje te w ładny sposób prezentują logi. Dzięki takiemu podejściu kod aplikacji głównej jest mniej zawiły ponieważ nie musi on zapewnić interfejsu do wyświetlania takich logów.
+\par
+Przykładem aplikacji którą używa powyższy wzorzec jest gra komputerowa "Gothic II"©. Jeżeli odpalimą główny plik .exe z odpowiednim parametrem to wtedy program za pomocą funkcji \textit{SendMessage} zaczyna wysyłać do wyższych okienek wszelaki logi diagnostyczne. Przykładowe wywołanie Gothic2.exe włączające logi:
+\begin{lstlisting}[caption={Gra Gothic włącza się w trybie okienkowym, bez muzyki i dźwięków oraz z wysyłaniem logów}]
+  Gothic2.exe -zwindow -znomusic -znosound -zlog:5,s
+\end{lstlisting}
+Twórcy dostarczyli takżę aplikację która nasłuchuje logi wysyłane przez grę - jej nazwa to zSpy.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=10cm]{zspy.png}
+  \caption{zSpy - aplikacji do wyświetlania logów gry Gothic}
+  \label{fig:gh_pages}
+\end{figure}
+\par
+Załóżmy, że posiadamy aplikację okienkową do liczenia liczb pierwszych która za pomocą graficznego interfejsu pozwala wyliczyć liczby pierwsze do podanej maksymalnej liczby. Cechy tej aplikacji to:
+\begin{itemize}
+  \item Jest napisana w języku C++,
+  \item Wykorzystuje sito Eratostenesa by wyliczyć liczby pierwsze dla podanego maksimum,
+  \item Wysyła logi w formacie JSON za pomocą funkcji \textit{SendMessage},
+  \item Jeżeli odpalimy tą aplikację z poziomu wiersza poleceń i podamy parametr liczbowy to zaincjalizujemy program bez potrzeby podawania z pomocą interfejsu graficznego liczby maksymalnej.
+\end{itemize}
+Chcielibyśmy umożliwić odpalanie tego programu na środowisku serwerowym które nie posiada kontekstu graficznego. Dodatkowo chcielibyśmy to zrealizować za pomocą platformy GitLab CI która umożliwia odpalenie danego potoku automatyzującego z parametrem dostarczonym przez użytkownika. Dzięki takiej konfiguracji bez konieczności odpalania systemu Windows zyskalibyśmy możliwość odpalania algorytmu który jest zaimplementowany w aplikacji graficznej.
+\par
+Sam interfejs graficzny aplikacji jest bardzo prosty. Składa się ona z pola tekstowego gdzie użytkownik podaje liczbę, przyciku który uruchamia algorytm oraz pola tekstowego gdzie wyświetlany jest wynik.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=10cm]{graphic-app-preview.png}
+  \caption{Aplikacja do wyznaczania liczb pierwszych odpalona na Windows 10}
+  \label{fig:gh_pages}
+\end{figure}
+\par
+Teraz chcielibyśmy uruchomić naszą aplikację na środowisku serwerowym. W przypadku GitLab'a mamy dostęp do maszyn na których działa tylko Linux. Jest to pierwszy problem który musimy rozwiązać - nie jest możliwe uruchomienie natywnie aplikacji stworzonej dla Windowsa na Linuxie. W tym aspekcie może nam pomóc projekt \textit{Wine}. Nazwa jest akronimem rekurencyjnym, z ang. \textit{Wine is not an emulator}. Akronim ten przypomina nam, że wine nie powinien być postrzegany jako emulartor Windows'a. Wine jest dodatkową wartstwą która tłumaczy wywołania systemowe specyficzne dla Windowsa na te zrozumiałe dla Linuxa. By nie marnować czasu na instalcję wine użyjemy gotowego obrazu docker'owego który ma już zainstalowanego wine z wszelikimi zależnościami. Obraz ten możemy pobrać za pomocą komendy:
+\begin{lstlisting}[caption={Pobierania obrazu który ma zainstalowane środowisko wine}]
+  docker pull scottyhardy/docker-wine
+\end{lstlisting}
+Cechą tego obrazu jest fakt, że w prosty sposób możemy odpalić w kontenerze serwer RDP (protokół pulpitu zdalnego) który pozwoli połączyć się z kontener w sposób graficzny. Jest to przydatne do debugowania. Gdy już odpalimy ten obraz z odpowiednimi parametrami startowymi możemy przetestować jak nasza aplikacja działa na systemie Linux. Załóżmy, że chcielibyśmy zobaczyć liczby pierwsze nie większe niż 14. W tym celu musimy odpalić komendę \textit{wine GraphicApp.exe 14} i poczekać aż wine się zainicjalizuje. Dzieje się to wtedy kiedy komenda \textit{wine} jest użyta po raz pierwszy.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=13cm]{wine-docker.png}
+  \caption{Aplikacja graficzna odpalona na systmie Linux}
+  \label{fig:wine_docker}
+\end{figure}
+Po chwili powinniśmy zauważyć okienko w którym powinien być wynik dla podanej liczby maksymalnej.
+\par
+Teraz gdy już jesteśmy w stanie uruchomić nasz program na systmie Linux musimy w jakiś sposób stworzyć interfejs który pozwoli nam wysyłać logi do zewnętrznej aplikacji. Chcielibyśmy by nasza aplikacja do wyświetlania logów była stworzona za pomocą technologii NodeJS. Sam obraz \textit{scottyhardy/docker-wine} nie zawiera środowiska NodeJS. Najrozsądniejszym wyjściem już użycie dedykowanego obrazu dla NodeJS - dzięki temu zyskujemy większą separacje między tymi dwoma światami. By aplikacja w innym kontenerze miała dostęp do logów które są wysyłane w wine musimy stworzyć pośrednią aplikację. Jej celem będzie nasłuchiwanie zdarzeń okienkowych oraz wysyłanie logów dalej za pomocą web socketów. 
+\par
+Główną częścią pośrednika jest nasłuchiwanie na zdarzenia okienkowe. Jest za to odpowiedzialny poniższy kod:
+\begin{lstlisting}[caption={Fragment aplikacji odpowiedzialnej za dalsze przekazywanie logów}]
+  LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+  {
+      switch (message)                  /* handle the messages */
+      {
+          case WM_COPYDATA:
+              {
+                  COPYDATASTRUCT* pcds = (COPYDATASTRUCT*)lParam;
+                  char * lpszString = (char *)(pcds->lpData);
 
+                  printf("Web Broadcaster received COPYDATA message!!\n");
+                  sendMessage((char*)lpszString);
+                  break;
+              }
+          case WM_DESTROY:
+              PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
+              break;
+          default:                      /* for messages that we don't deal with */
+              return DefWindowProc (hwnd, message, wParam, lParam);
+      }
 
+      return 0;
+  }
+\end{lstlisting}
+Jeżeli typ wiadomości otrzymany przez aplikacje jest równy \textit{WM\_COPYDATA} to w takim wypadku treść wiadomości jest wysyłana dalej do serwera z którym pośrednik jest połączony.
+\par
+Tworząc aplikację opartą na WebSocket'ach należy mieć na względzie to, że musimy stworzyć serwer który będzie miejscem gdzie logi będą parsowane i w ładny sposób drukowane na standardowym wyjściu. Kod serwera jest stworzony w języku JavaScript i wygląda następujaco:
+\begin{lstlisting}[caption={Kod aplikacji serwera który wyświetla logi z aplikacji graficznej}]
+var net = require('net');
 
+try {
+  let activeSockets = [];
+  let graphicAppSendResult = false;
+  let connectionCounter = 0;
+  var server = net.createServer(function(socket) {
+    socket.pipe(socket);
+
+    activeSockets.push(socket);
+
+    connectionCounter++;
+    socket.on('data', function(data) {
+      const dataString = (data.toString() || '');
+      const parsed = dataString.match(/{(.*?)}/gm);
+
+      if ( parsed ) {
+        parsed.forEach(item => {
+          try {
+            const result = JSON.parse(item);
+
+            if ( result.log ) {
+              console.log(`Log: ${result.log}`);
+            } else if (result.result) {
+              console.log(`Result: ${result.result}`);
+            } else {
+              console.log(`Other unknown: ${result}`);
+            }
+          } catch (e) {
+            console.error('Problem with parsing', item);
+          }
+        });
+
+        activeSockets.forEach(i => i.write('graphic-app-finished-calc'));
+        graphicAppSendResult = true;
+      } else {
+        console.log('Not known input data', dataString)
+      }
+    });
+
+    socket.on('close', function () {
+      console.log('Closing socket');
+      const toRemove = activeSockets.find(i => i === socket);
+
+      activeSockets = activeSockets.filter(i => i !== toRemove);
+    });
+
+    socket.on('error', function (e) {
+      console.log('Socket error', e);
+    });
+
+    if ( connectionCounter >= 2 ) {
+      activeSockets.forEach(i => i.write('broadcaster-connected'));
+    }
+
+    if (graphicAppSendResult) {
+      socket.write('graphic-app-finished-calc');
+    }
+  });
+
+  server.listen(8080, () => {
+    console.log('Web listener waiting on 8080');
+  });
+
+} catch (e) {
+  console.log('Web listener error', e);
+  throw e;
+}
+\end{lstlisting}
+Jeżeli spojrzymy na linikę 13 powyższego listingu to zauważymy kod odpowiedzialny za odbieranie wiadomości z WebSocket'a. Należy mieć na względzie, że protokół WebSocket nie gwarantuje nam, że wiadomość odebrana na serwerze będzie pojedyńczą wiadomości wysłaną przez klienta. Może się zdarzyć sytuacja w której dwie wiadomości będą złączone ze sobą. W tym celu w linijce 15 za pomocą wyrażenia regularnego szukamy wiadomości które spełniają wzorzec formatu z aplikacji graficznej. Kolejne linijki parsują otrzymaną wiadomość oraz wyświetlają ją na ekranie. W linijce 34 informujemy klientów podłączonych do serwera, że aplikacja graficzna skończyła obliczenia. Wysyłając tą wiadomość dajemy znać, że aplikacja graficzna skończyła swoje obliczenia i proces na serwerze może być już zamknięty.
+\par
+Całość projektu uzupełniają dwie mini aplikacje w NodeJS. Celem pierwszej jest czekanie aż aplikacja graficzna będzie już aktywna. Celem drugiej jest czekanie aż pośrednik który przekazuje wiadomości z środowiska WinAPI do WebSocket'ów połączy się z serwerem. Bez tych aplikacji nie możliwa byłaby kontrola procesu odpalanego na serwerze.
+\par
+Finalnie odpalenie programu sprowadza się do odpowiedniego odpalania różnych poleceń docker'owych:
+\begin{lstlisting}[caption={.gitlab-ci.yml - konfiguracji procesu automatyzującego}]
+run-calculation:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - env
+    - echo "Creating docker network"
+    - docker network create graphic-app-network
+    - echo "Running web listener"
+    - docker run -d -v $(pwd):/app --network graphic-app-network --name web-listener node:14-alpine node /app/web-listener/main.js
+    - echo "Running wine container"
+    - docker run -d -it -v $(pwd):/app --rm --hostname="$(hostname)" --network graphic-app-network  --publish="3389:3389/tcp" --name docker-wine-container scottyhardy/docker-wine tail -f /dev/null
+    - sleep 3
+    - echo "Running broadcaster"
+    - docker exec -d docker-wine-container /bin/bash -c "/app/start.sh"
+    - echo "Waiting for broadcaster to be up"
+    - docker ps
+    - docker logs web-listener
+    - docker run -v $(pwd):/app --network graphic-app-network node:14-alpine node /app/wait-for-broadcaster/main.js
+    - echo "Running graphic app"
+    - docker exec -d docker-wine-container /bin/bash -c "DISPLAY=:1 wine /app/graphic-app/GraphicApp.exe ${PRIME_NUMBERS_LIMIT:-30}" &
+    - echo "Waiting for graphic app to finish work"
+    - docker ps
+    - docker logs web-listener
+    - docker run -v $(pwd):/app --network graphic-app-network node:14-alpine node /app/wait-for-graphic-app/main.js || echo "Failed to wait for graphic..."
+    - docker logs web-listener
+  only:
+    - master
+\end{lstlisting}
+Powyższy plik to plik konfiguracyjny GitLab CI. Zawiera on informację o potokach które nasze środowisko ma zawierać. W naszym przypadku mamy tylko jeden potok \textit{run-calculation} który jest odpowiedzialny za odpalanie aplikacji graficznej. Proszę zwrócić, że w linijce 22 odpalamy aplikację graficzną. Dzięki użyciu tutaj parametru środowiskowego \textit{PRIME\_NUMBERS\_LIMIT} zyskujemy możliwość późniejszego odpalenia potoku z dowolną wartością liczbową. Dzięki temu użytkownik będzie mógł zobaczyć działanie programu dla różnych danych wejściowych.
+\par
+Teraz powinniśmy mieć możliwość odpalenie programu z dowolnym parametrem startowym.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=13cm]{gitlab-pipeline.png}
+  \caption{Interfejs uruchamiania pipeline'a z zdefiniowanymi parametrami środowiskowymi}
+  \label{fig:gitlab_pipeline}
+\end{figure}
+Po odpaleniu danego pipeline'u powinniśmy być w stanie przejrzeć logi które zostały wypisane na standardowe wyjście.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=14cm]{gitlab-ci-result.png}
+  \caption{Wyniki pipeline'u dla \textit{PRIME\_NUMBERS\_LIMIT} równego 30}
+  \label{fig:gitlab_pipeline_result}
+\end{figure}
+W logach tych powinniśmy dostrzec na końcu wiadomości wysłane z aplikacji graficznej. Dzięki temu jesteśmy w stanie stwierdzić jaki jest wynik działania programu graficznego.
 % tutaj mógłbym rozwinąć rozdział 3 i powiedzieć, że coraz mniej używa się Jenkinsa i obecnie popularne są platformy jak Github Actions, CircleCI czy gitlabCI, które są trigerrowane przez commity, pushe czy też tworzenie tagów z pomocą systemu wersji git. Myślę, że mógłbym tutaj zrobić nawiązanie do części praktycznej pracy:
 % 4a) continues delivery w React Native na przykładzie GitHub actions
 % 4b) continues deploymeny na przykładzie aplikacji backendowej w javaScriptcie
