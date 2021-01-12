@@ -1,4 +1,4 @@
-\documentclass[twoside]{projektInzynierskiMS1}
+\documentclass[twoside]{projektInzynierskiMS}
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -52,9 +52,14 @@
 
 
 %% każdy autor musi mieć 3 argumenty: imię nazwisko, nr albumu, opis wkładu
-\autor{Artur Kasperek}{1234}
-\autor{Michał Płonka}{1234}
-\autor{Patryk Musiol}{1234}
+\autor{Artur Kasperek}{259059}{33}{przygotowanie wstępu o przemyśle IT, przygotowaniu rozdziału o SaaS CI/CD, przygotowanie aplikacji do publikacji strony z pomocą GitHub Actions, przygotowanie aplikacji graficznej odpalanej na GitLab CI}
+\autor{Michał Płonka}{275315}{33}
+{przygotowanie rozdziału teoretycznego o testach i ciągłej integracji,
+przygotowanie działającego przykładu wykorzystania CI na platformie GitHub,
+przygotowanie podsumowania,
+korekta pracy}
+\autor{Patryk Musiol}{275306}{33}{przygotowanie projektu Jenkins, przygotowanie rozdziału o wirtualizacji oraz Jenkinsie, przygotowanie wstępu}
+
 
 %% dedykacja mile widziana
 % \dedykacja{To jest\\dedykacja}
@@ -78,7 +83,15 @@
 \newtheorem{dd}{Definicja}%[subsection]
 
 \begin{document}
-TODO dodać wstęp
+Celem pracy jest rozpatrzenie aspektów automatyzacji w branży IT. Pojęcie automatyzacji jest dość rozległe i wiąże się z wieloma aspektami świata IT, dlatego w tej pracy na początku ogólnie scharakteryzujemy czym jest ta branża oraz jaką rolę odgrywa w niej automatyzacja. W pierwszej części opiszemy: rolę automatyzacji w zwinnych procesach wytwarzania oprogramowania, jak zmieniało się to podejście na przestrzeni czasu oraz współczesne podejście do tego zagadnienia. Następnie skupimy się na komputerach i przedstawimy jak wirtualizacja na równi z orkiestracją odmieniły sposób wdrażania oprogramowania. 
+
+Trzeci rozdział jest bardziej praktyczny ponieważ to w nim przedstawimy przykładowy scenariusz wykorzystania narzędzia do automatyzacji o nazwie Jenkins. Projekt ten będzie automatyzował proces budowania aplikacji opartej na architekturze kontenerowej.
+
+Czwarty rozdział to opis dostępnych platform "software as a service" stworzonych do realizacji idei ciągłej integracji oraz ciągłego wdrażania. 
+
+W kolejny, piątym już rozdziale, bliżej przyjrzymy się wykorzystaniu testów i ich roli w tworzeniu oprogramowania w dzisiejszych czasach. 
+
+Ogólnym celem naszej pracy jest odpowiedzenie na pytanie, jaką rolę odgrywa automatyzacja w IT i jak jest implementowana, co postaramy się podsumować w ostatnim rozdziale naszego tekstu.
 
 
 \input{rozdzialy/wstep.tex}
