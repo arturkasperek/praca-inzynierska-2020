@@ -6,18 +6,18 @@
 
 \subsection{Inżynieria oprogramowania}
 Kolejny rozdział tej pracy inżynierskiej poświęcimy na opisanie aspektów automatyzacji w procesach tworzenia oprogramowania. 
-Jako wprowadzenie do tego działu kolejny raz chciałbym na podstawie książki "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win" autorstwa Gene Kim i Kevin Behr pokazać jak popularyzacja komputerów spowodowała zapotrzebowanie na nowe technologie. 
+Jako wprowadzenie do tego rozdziału kolejny raz chciałbym na podstawie książki "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win" autorstwa Gene Kim i Kevin Behr pokazać jak popularyzacja komputerów spowodowała zapotrzebowanie na nowe technologie. 
 Z biegiem czasów gdy komputery stawały się coraz to bardziej popularne, powstawało coraz więcej aplikacji czy to desktopowych czy to webowych. Coraz więcej programistów i aplikacji pojawiało się na rynku. Powstawało wiele firm tworzących oprogramowanie i w związku z dużą konkurencyjnością, firmy wymyślały nowe sposoby poprawy wdrażania oprogramowania, sprawdzania jakości kodu, dostępności infrastruktury oraz poprawy wydajności kodu, po to by wyróżnić się na konkurencyjnym rynku. Coraz to większą rolę w środowisku IT zaczęli odgrywać  DevOpsi, czyli jak podają autorzy książki, osoby tworzące równowagę pomiędzy działami wytwarzania oprogramowania i zarządzania systemami.  
 
 
 \subsection{DevOps} 
-Jak wspomina Gene i Kevin w swojej książce - do głównych zadań inżynierów DevOps należy:
+Do głównych zadań inżynierów DevOps należy:
 \begin{itemize}
-    \item projektowanie strategi kontroli wersji
-    \item wdrożenie i integracja kontroli źródeł
-    \item implementacja i zarządzanie infrastrukturą build'owania
-    \item wdrażanie przepływu kodu
-    \item zarządzanie konfiguracją aplikacji i jej tajnymi danymi
+    \item projektowanie strategi kontroli wersji,
+    \item wdrożenie i integracja kontroli źródeł,
+    \item implementacja i zarządzanie infrastrukturą build'owania,
+    \item wdrażanie przepływu kodu,
+    \item zarządzanie konfiguracją aplikacji i jej tajnymi danymi.
 \end{itemize}
 
 Autorzy książki opisują duży chaos w zarządzaniu kodem w czasach kiedy wszystkie te koncepty nie były jeszcze tak popularne jak dzisiaj. Opisują środowiska przechowywania kodu jako miejsca mało zadbane i prowadzone bez głębszego pomysłu.
@@ -30,18 +30,18 @@ Na potwierdzenie słuszności naszego wyboru warto dodać, że narzędzie to w 2
 \subsection{Projekt}
 
 Celem projektu jest przybliżenie możliwości automatyzacji na podstawie nowoczesnego narzędzia codziennie wykorzystywanego w świecie IT. Tym narzędziem będzie Jenkins. 
-Na potrzeby tego projektu stworzę również prostą aplikację Spring Boot, która będzie implementowała podstawowe założenia API RESTful. Jenkins oraz aplikacja w nawiązaniu do poprzedniego działu tej pracy będą uruchomione na kontenerach. Celem tego zabiegu jest zaprezentowanie działania tego narzędzia. 
+Na potrzeby tego projektu stworzę również prostą aplikację Spring Boot, która będzie implementowała podstawowe założenia API RESTful. Jenkins oraz aplikacja w nawiązaniu do poprzedniego rozdziału tej pracy będą uruchomione w kontenerach. Celem tego zabiegu jest zaprezentowanie działania tego narzędzia. 
 
 \subsection{Jenkins}
 
-Jest to projekt open sourcowy (co oznacza, że każdy może wprowadzać zmiany do projektu) napisany całkowicie w języku Java. Jenkins wykonuje szereg zadań by osiągnąć założenia ciągłej integracji poprzez automatyzację części związanych z budowaniem, testowaniem i wdrażaniem. To sprawia, że developerzy mogą ciągle pracować nad ulepszaniem produktu nad którym pracują. Ponadto jest to system, który działa na servletowych kontenerach, jak na przykład Apache Tomcat. 
+Jest to projekt open-source napisany całkowicie w języku Java. Jenkins wykonuje szereg zadań by osiągnąć założenia ciągłej integracji poprzez automatyzację części związanych z budowaniem, testowaniem i wdrażaniem. To sprawia, że developerzy mogą ciągle pracować nad ulepszaniem produktu nad którym pracują. Ponadto jest to system, który działa na servletowych kontenerach, jak na przykład Apache Tomcat. 
 Jenkins automatyzuje budowanie aplikacji, dzięki czemu developerzy są w stanie wcześnie wykrywać błędy w swoim kodzie. Do głównych zalet Jenkinsa zdecydowanie można zaliczyć społeczność, która się wokół Jenkinsa przez wiele lat działalności zbudowała. Jest to narzędzie nie tylko łatwo rozszerzalne, ale również posiada wiele zaimplementowanych wtyczek. 
 Kilka przykładów zastosowania tego oprogramowania:
 \begin{itemize}
-    \item budowanie aplikacji przy pomocy narzędzi do buildowania jak Gradle, Maven czy inne 
-    \item automatyzacja testów  (Nose2, PyTest, Robot, Selenium i wiele innych)
-    \item wykorzystywany do testowania skryptów (bash, bat, zsh, inne)
-    \item raportowanie, czyli na przykład wyświetlanie wyników testów
+    \item budowanie aplikacji przy pomocy narzędzi do buildowania jak Gradle, Maven czy inne, 
+    \item automatyzacja testów  (Nose2, PyTest, Robot, Selenium i wiele innych),
+    \item wykorzystywany do testowania skryptów (bash, bat, zsh, inne),
+    \item raportowanie, czyli na przykład wyświetlanie wyników testów.
 \end{itemize}
 
 Na czas pisania tej pracy Jenkins posiada ponad 1500 wtyczek stworzonych przez społeczność, dzięki którym doświadczenie z korzystania z narzędzia oraz aktywności związane z budowaniem, wdrażaniem i automatyzacją projektu stają się lepsze. 
@@ -56,43 +56,44 @@ Aby dobrze zrozumieć jak działa narzędzie, w tym rozdziale opiszę co się st
 
 Według Johna Smart, czyli autora książki "Jenkins: The Definitive Guide" istnieje kilka kroków, które opisują jak działa komunikacja między elementami w Jenkinsie: 
 \begin{itemize}
-    \item inżynier zmienia kod źródłowy aplikacji i zapisuje zmiany do repozytorium
-    \item repozytorium jest regularnie sprawdzane przez serwer Jenkins CI i w razie jakiś zmian ten sam serwer pobiera je do dalszej pracy
-    \item w następnym kroku jest sprawdzane czy zapisane zmiany "przechodzą". Build  jest wykonywany i jeśli nie było żadnych błędów generowany jest plik wykonywalny. Jeśli pojawią się jakieś błędy, tworzony jest email z linkiem do logów builda. 
-    \item w przypadku gdy build był udany, plik wykonywalny jest wdrażany na środowisku testowym. Ten krok pomaga zrealizować krok ciągłego testowania ponieważ plik wykonywalny przechodzi przez wiele testów automatycznych. Jeśli są problemy w którymś z testów, programiści również są o tym informowani.
-    \item jeśli nie ma problemów podczas buildu, integracji czy testowania - zmiany są automatycznie wdrażane na środowisko produkcyjne
+    \item inżynier zmienia kod źródłowy aplikacji i zapisuje zmiany do repozytorium,
+    \item repozytorium jest regularnie sprawdzane przez serwer Jenkins CI i w razie jakiś zmian ten sam serwer pobiera je do dalszej pracy,
+    \item w następnym kroku jest sprawdzane czy zapisane zmiany "przechodzą". Build  jest wykonywany i jeśli nie było żadnych błędów generowany jest plik wykonywalny. Jeśli pojawią się jakieś błędy, tworzony jest email z linkiem do logów builda,
+    \item w przypadku gdy build był udany, plik wykonywalny jest wdrażany na środowisku testowym. Ten krok pomaga zrealizować krok ciągłego testowania ponieważ plik wykonywalny przechodzi przez wiele testów automatycznych. Jeśli są problemy w którymś z testów, programiści również są o tym informowani,
+    \item jeśli nie ma problemów podczas buildu, integracji czy testowania - zmiany są automatycznie wdrażane na środowisko produkcyjne.
 \end{itemize}
 
 
 
 Często się zdarza, że pojedynczy serwer może nie wystarczyć. Na przykład:
 \begin{itemize}
-    \item testy muszą być wykonane na różnych środowiskach
+    \item testy muszą być wykonane na różnych środowiskach,
     \item pojedynczy serwer nie jest wstanie obsłużyć ruchu, który jest wymagany w wielkich systemach.
 \end{itemize}
 
-W tych przypadkach wykorzystywana jest architektura Master-slave, wspomniana krótko na początku tego działu. Jak więc wygląda ta architektura? O tym właśnie będzie dalsza część tej pracy. 
+W tych przypadkach wykorzystywana jest architektura Master-slave, wspomniana krótko na początku tego rozdziału. Zostanie ona przedstawiona dokładniej w dalszej części tej pracy. 
+
 Architektura master-slave jest używana do zarządzania rozszerzonymi buildami. Komunikacja między serwerem mastera i slave'a odbywa się poprzez protokół TCP/IP. 
 
 \subsection{Master}
 
 To jest główny serwer Jenkinsa. Do jego głównych zadań należą:
 \begin{itemize}
-    \item zorganizowanie "jobów" builda
-    \item wybór odpowiedniego slave'a
-    \item monitorowanie slave'ów i w razie potrzeby włączanie/wyłączanie ich
-    \item raportowanie wyników builda do developerów
+    \item zorganizowanie "jobów" builda,
+    \item wybór odpowiedniego slave'a,
+    \item monitorowanie slave'ów i w razie potrzeby włączanie/wyłączanie ich,
+    \item raportowanie wyników builda do developerów.
 \end{itemize}
 
 Master również może zostać wykorzystywany bezpośrednio do wykonywania jobów ale rekomendowane jest, żeby były one wykonywane na slaveach.
 
 \subsection{Slave}
 
-Slave'ami nazywami zewnętrzną maszyne połączoną z Masterem. Zależnie od projektu oraz wymagań builda liczna slave'ow może się różnić. Slavy mogą być uruchomione na różnych systemach operacyjnych i zależnie od wymagań builda, master wybiera odpowiedniego slavea do wykonania builda i testów. 
+Slave'ami nazywamy zewnętrzną maszynę połączoną z Masterem. Zależnie od projektu oraz wymagań builda liczna slave'ow może się różnić. Slavy mogą być uruchomione na różnych systemach operacyjnych i zależnie od wymagań builda, master wybiera odpowiedniego slavea do wykonania builda i testów. 
 Do głównych zadań slave'a należą:
 \begin{itemize}
-    \item nasłuchiwanie na polecenia Mastera
-    \item wykonie jobów zleconych przez Mastera
+    \item nasłuchiwanie na polecenia Mastera,
+    \item wykonie jobów zleconych przez Mastera,
     \item developerzy mogą "ręcznie" wybrać slave na którym ma zostać wykonane zadanie ale z reguły Master dobiera najbardziej pasujący slave.
 \end{itemize}
 
@@ -113,9 +114,9 @@ Jak do tej pory pokrótce opisaliśmy za co odpowiedzialne są poszczególne kom
 \end{figure}
 
 \begin{itemize}
-    \item Developer zapisuje zmiany w kodzie na zewnętrznym repozytorium
-    \item master jest połączony z repozytoriom i regularnie sprawdza czy pojawiły się jakieś zmiany. Wszystkie slave'y są połączone z masterem.
-    \item master otrzymuje żądanie wykonania zadania, które zostaje przekazane do odpowiedniego slave'a. 
+    \item Developer zapisuje zmiany w kodzie na zewnętrznym repozytorium,
+    \item master jest połączony z repozytoriom i regularnie sprawdza czy pojawiły się jakieś zmiany. Wszystkie slave'y są połączone z masterem,
+    \item master otrzymuje żądanie wykonania zadania, które zostaje przekazane do odpowiedniego slave'a,
     \item slave wykonuje zlecone zadania, generuje raporty testów. Master ciągle monitoruje wyniki testów.
 \end{itemize}
 
@@ -182,7 +183,7 @@ W pliku tym znajdują się zależności jak i wtyczki Spring Boot potrzebne do d
 
 \subsection{Dockerfile} 
 
-Dockerfile jest to specyficzny plik, któremy pozwala nam zdefiniować jak powinien nasz kontener wyglądać. Każda linia w Dockerfile to osobna instrukcja, która opisuje jak powinien wyglądać końcowy kontener. 
+Dockerfile jest to specyficzny plik, który pozwala nam zdefiniować jak powinien wyglądać nasz kontener. Każda linia w Dockerfile to osobna instrukcja, która opisuje jak powinien wyglądać końcowy kontener. 
 
 Na początku konieczne jest zbudowanie naszego programu, żeby można było go wykorzystać w naszym dockerfile. W tym celu użyję komendy ./mvnw clean package, która skompiluje nasz kod i spakuje go do pliku wykonywalnego rest-service-0.0.1-SNAPSHOT.jar. Plik ten będzie wykorzystywany w naszym Dockerfile. 
 
@@ -203,7 +204,7 @@ Kolejno w konsoli użyłem trzech komend, aby zbudować nasz projekt i uruchomi�
     docker build -t pracainzynierka
     docker run pracainzynierska -p 2222:2222
 \end{lstlisting}
-W pierwszej kolejności lokalnie budujemy projekt by zaktualizować nasz plik jar, który jest nam potrzebny podczas budownia obrazu Dockera w drugiej komendzie. W ostatnim kroku uruchamiamy nasz kontener. Po tych krokach wchodząc pod adres http://127.0.0.1:2222/greeting otrzymamy powitalną odpowiedź z naszego kontenera. 
+W pierwszej kolejności lokalnie budujemy projekt by zaktualizować nasz plik jar, który jest nam potrzebny podczas budowania obrazu Dockera w drugiej komendzie. W ostatnim kroku uruchamiamy nasz kontener. Po tych krokach wchodząc pod adres http://127.0.0.1:2222/greeting otrzymamy powitalną odpowiedź z naszego kontenera. 
 W dalszej części pracy inżynierskiej zautomatyzujemy ten proces przy pomocy Jenkinsa. 
 
 \subsection{Automatyzacja przy użyciu Jenkinsa}

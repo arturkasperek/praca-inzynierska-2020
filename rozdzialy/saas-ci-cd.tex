@@ -2,11 +2,11 @@
 \subsection{Z czego wynika popularność platform SaaS?}
 Platformy takie jak GitHub, CircleCI czy też BitBucket zasłynęły z tego, że oferowały możliwość hostowania naszego repozytorium Git'owego w chmurze. Z biegiem czasu zaczęły one oferować dodatkowe usługi. Serwisy te to już nie tylko miejsce, które umożliwia hostowanie naszego repozytorium kodu - pozwalają one na takie rzeczy jak:
 \begin{itemize}
-    \item Odpalanie procesów automatyzujących (GitHub, GitLab, BitBucket) - dzięki możliwości tworzenia własnych procesów automatyzujących mamy możliwość zaimplementować własny proces ciągłej integracji, ciągłego dowożenia czy też ciągłego dostarczania,
-    \item Odpalanie manualne predefiniowanych procesów (GitLab) - jest to dość prosta funkcjonalność, która daje sporo możliwości. GitLab dostarcza interfejs, w którym możemy uruchomić dowolny pipeline (z ang. \textit{potok}) manualnie - dodatkowo możemy podać argumenty w postaci pól tekstowych. Przykładem, gdzie ta funkcja GitLab'a byłaby użyteczna, jest aplikacja webowa, która zabiera dużo zasobów. Użycie procesu ciągłego dostarczania, by uruchamiać wersję staging'ową oznaczałoby, że aplikacja ta zbędnie używałaby zasoby na serwerze. Dzięki funkcji odpalania manualnego pipeline'ów moglibyśmy uruchamiać aplikację tylko wtedy, kiedy chcielibyśmy przetestować jak działa,
+    \item Uruchamianie procesów automatyzujących (GitHub, GitLab, BitBucket) - dzięki możliwości tworzenia własnych procesów automatyzujących mamy możliwość zaimplementować własny proces ciągłej integracji, ciągłego dowożenia czy też ciągłego dostarczania,
+    \item Uruchamianie manualne predefiniowanych procesów (GitLab) - jest to dość prosta funkcjonalność, która daje sporo możliwości. GitLab dostarcza interfejs, w którym możemy uruchomić dowolny pipeline (z ang. \textit{potok}) manualnie - dodatkowo możemy podać argumenty w postaci pól tekstowych. Przykładem, gdzie ta funkcja GitLab'a byłaby użyteczna, jest aplikacja webowa, która zabiera dużo zasobów. Użycie procesu ciągłego dostarczania, by uruchamiać wersję staging'ową oznaczałoby, że aplikacja ta zbędnie używałaby zasoby na serwerze. Dzięki funkcji uruchamiania manualnego pipeline'ów moglibyśmy uruchamiać aplikację tylko wtedy, kiedy chcielibyśmy przetestować jak działa,
     \item Integracja z Kubernetes'em (GitLab) - GitLab upraszcza proces release'u naszego oprogramowania dzięki integracji z Kubernetes'em. Możemy podpiąć istniejący już klaster albo stworzyć nowy. GitLab może stworzyć taki klaster za nas pod warunkiem, że będzie on działał na chmurze AWS albo Google Cloud,
     \item Publikacje strony statycznej (GitHub) - GitHub umożliwia publikacje danego folderu z plikami statycznymi strony internetowej, który jest częścią repozytorium. Dzięki temu możemy uprościć proces publikacji naszej strony internetowej,
-    \item Hosting obrazów Docker'owych oraz paczek/bibliotek (GitHub, GitLab, BitBucket) - dzięki hostingowi obrazów Docker'owych możemy uprościć proces późniejszego odpalenia naszego kodu na serwerze. Dodatkowo możemy hostować na tych platformach paczki popularnych języków. Wspierane są między innymi: NPM (nodeJS), Maven (Java), NuGet (.NET), RubyGems (Ruby),
+    \item Hosting obrazów Docker'owych oraz paczek/bibliotek (GitHub, GitLab, BitBucket) - dzięki hostingowi obrazów Docker'owych możemy uprościć proces późniejszego uruchomienia naszego kodu na serwerze. Dodatkowo możemy hostować na tych platformach paczki popularnych języków. Wspierane są między innymi: NPM (nodeJS), Maven (Java), NuGet (.NET), RubyGems (Ruby),
     \item Śledzenia zadań (GitHub, GitLab, BitBucket) - każda ze znaczących platform ma wbudowane w sobie oprogramowanie do śledzenia zadań. Dzięki temu możemy stworzyć prostą metodykę Agile'ową używając tego, co zapewnia nam dana platforma. Z reguły oprogramowanie to jest mocno ograniczone i nadaje się do prostszych projektów. Zespoły, które mają większe wymagania, muszą szukać oddzielnego oprogramowania,
     \item Audyt bezpieczeństwa bibliotek (GitHub, GitLab) - dzięki tej funkcjonalności możemy się dowiedzieć, czy nasze zależności trzecie nie posiadają luk bezpieczeństwa. GitHub lub GitLab w przypadku wykrycia takiego problemu wysyła maila z powiadomieniem oraz tworzy automatyczną poprawkę,
     \item Sponsoring (GitHub) - GitHub posiada wbudowaną opcję która włącza sponsoring naszego projektu. Dzięki temu na stronie głównej repozytorium pojawia się ikonka serca, która pozwala wesprzeć dany projekt pieniężnie. Jest to ciekawa opcja dla projektów open source.
@@ -123,7 +123,7 @@ Strona może być teraz opublikowana. Do tego celu służy komenda \textit{gatsb
 \par
 GitHub Actions posiada własną składnię do definicji potoków automatyzujących. Najmniejszą jednostką, którą możemy zdefiniować jest \textit{workflow} (z ang. \textit{przepływ}). W dokumentacji \cite{GithubActionsDoc} możemy dowiedzieć się, że \textit{workflow} to konfigurowalny zautomatyzowany proces składający się z co najmniej jednego zadania oraz pliku YAML, który zawiera jego definicję. Warto podkreślić, że plik ten jest częścią naszego projektu - wynika z tego, że jest on wersjonowany wraz z kodem źródłowym i innymi plikami.
 \par
-Plik YAML danego \textit{workflow} zawiera informację o swojej nazwie, to kiedy ma się odpalić oraz definicję tego co ma wykonać. W naszym przypadku chcemy, by nasz \textit{workflow} wykonywał się za każdym razem, gdy wrzucamy jakieś zmiany na master'a. Możemy to osiągnąć za pomocą poniższego fragmentu kodu:
+Plik YAML danego \textit{workflow} zawiera informację o swojej nazwie, to kiedy ma się uruchomić oraz definicję tego co ma wykonać. W naszym przypadku chcemy, by nasz \textit{workflow} wykonywał się za każdym razem, gdy wrzucamy jakieś zmiany na master'a. Możemy to osiągnąć za pomocą poniższego fragmentu kodu:
 \begin{lstlisting}[caption={Nazwa oraz definicja wyzwalacza \textit{workflow} budującęgo stronę}]
   name: Build and Deploy
 
@@ -169,9 +169,9 @@ Definicja tego, co nasz proces ciągłego dowożenia ma robić, wygląda następ
 \par
 Jedną z rzeczy, które wyróżniają GitHub Actions nad innymi systemami ciągłej integracji/ciągłego dowożenia, jest możliwość definiowania tytułowych akcji. Akcje to nic innego jak sprytnie zapakowane programy lub też skrypty bash'owe, które pod spodem wykonują jakąś skomplikowaną rzecz. W zależności od argumentów środowiskowych możemy daną akcję dostosować do naszych potrzeb. Z faktu, że każdy może publikować własne akcje, nie jesteśmy ograniczeni do korzystania tylko z akcji dostarczonych przez twórców GitHub Actions. Dzięki takiemu podejściu mamy dostęp do bogatej bazy gotowych modułów.
 \par
-Wyjaśnijmy teraz, co dane linijki robią. W linii 3 definiujemy to, jaki system chcemy użyć jako bazowy. W naszym przypadku używamy Ubuntu, ponieważ jest najbardziej „lekkim” z wszystkich możliwych systemów. Od linijki 4 do końca mamy definicję kroków, co dany \textit{job} (z ang. \textit{zadanie}) ma wykonać. Pierwszymi krokami jest przełączenie się do danego branch'a oraz użycie akcji, która zainstaluje nam środowisko nodeJS w wersji 14. Od linii 10 do 15 zdefiniowane są dwa kroki, których celem jest zainstalowanie zależności naszego projektu oraz jego zbudowanie. W tym celu używamy menadżera paczek \textit{yarn}, który został zainstalowany dodatkowo podczas instalacji nodeJS. Kroki te pokazują, że nie jesteśmy uzależnieni tylko od użycia gotowych akcji. Za pomocą słowa kluczowego \textit{run} możemy zdefiniować dowolną komendę bash'ową, która ma być wykonana w danym momencie. Warto podkreślić fakt, że zmienne środowiskowe, które były zdefiniowane w danym kroku, nie są dostępne dla kolejnych kroków. GitHub Actions odpala każdy krok w osobnej sesji bash'owej. Na ten moment nasza strona powinna być wybudowana i zapisana w folderze \textit{public}.
+Wyjaśnijmy teraz, co dane linijki robią. W linii 3 definiujemy to, jaki system chcemy użyć jako bazowy. W naszym przypadku używamy Ubuntu, ponieważ jest najbardziej „lekkim” z wszystkich możliwych systemów. Od linijki 4 do końca mamy definicję kroków, co dany \textit{job} (z ang. \textit{zadanie}) ma wykonać. Pierwszymi krokami jest przełączenie się do danego branch'a oraz użycie akcji, która zainstaluje nam środowisko nodeJS w wersji 14. Od linii 10 do 15 zdefiniowane są dwa kroki, których celem jest zainstalowanie zależności naszego projektu oraz jego zbudowanie. W tym celu używamy menadżera paczek \textit{yarn}, który został zainstalowany dodatkowo podczas instalacji nodeJS. Kroki te pokazują, że nie jesteśmy uzależnieni tylko od użycia gotowych akcji. Za pomocą słowa kluczowego \textit{run} możemy zdefiniować dowolną komendę bash'ową, która ma być wykonana w danym momencie. Warto podkreślić fakt, że zmienne środowiskowe, które były zdefiniowane w danym kroku, nie są dostępne dla kolejnych kroków. GitHub Actions uruchamia każdy krok w osobnej sesji bash'owej. Na ten moment nasza strona powinna być wybudowana i zapisana w folderze \textit{public}.
 \par
-Ostanim krokiem jest publikacja strony na gałęzi \textit{gh-pages}. W tym celu używamy gotowej akcji o nazwie \textit{JamesIves/github-pages-deploy-action} w wersji 3.6.2. Jest to przykład akcji, która została dostarczona przez trzeciego autora i jest udostępniona szerokiej publiczności. Akcja ta „pod spodem” za pomocą git'a wysyła dany folder na wyspecjalizowaną za pomocą parametru \textit{BRANCH} gałąź. Dodatkowo musimy podać w parametrach akcji token dostępu do GitHuba. Robimy to za pomocą parametru \textit{GITHUB\_TOKEN}. Token ten jest automatycznie generowany przez GitHub'a podczas odpalania danego \textit{workflow}'a i daje możliwość zapisywania zmian do repozytorium, gdzie \textit{workflow} jest odpalane. Tym sposobem akcja dostaje niezbędne prawa do wysłania folderu z wybudowaną stroną na gałąź \textit{gh-pages}, która jest częścią tego samego repozytorium. Dzięki temu, że wykorzystaliśmy gotową akcję do publikacji naszej strony, ograniczyliśmy długość kodu oraz zredukowaliśmy czas, który musielibyśmy poświęcić na stworzenie skryptu, który wysyła folder \textit{public} na odpowiednią gałąź.
+Ostanim krokiem jest publikacja strony na gałęzi \textit{gh-pages}. W tym celu używamy gotowej akcji o nazwie \textit{JamesIves/github-pages-deploy-action} w wersji 3.6.2. Jest to przykład akcji, która została dostarczona przez trzeciego autora i jest udostępniona szerokiej publiczności. Akcja ta „pod spodem” za pomocą git'a wysyła dany folder na wyspecjalizowaną za pomocą parametru \textit{BRANCH} gałąź. Dodatkowo musimy podać w parametrach akcji token dostępu do GitHuba. Robimy to za pomocą parametru \textit{GITHUB\_TOKEN}. Token ten jest automatycznie generowany przez GitHub'a podczas uruchamiania danego \textit{workflow}'a i daje możliwość zapisywania zmian do repozytorium, gdzie \textit{workflow} jest uruchamiany. Tym sposobem akcja dostaje niezbędne prawa do wysłania folderu z wybudowaną stroną na gałąź \textit{gh-pages}, która jest częścią tego samego repozytorium. Dzięki temu, że wykorzystaliśmy gotową akcję do publikacji naszej strony, ograniczyliśmy długość kodu oraz zredukowaliśmy czas, który musielibyśmy poświęcić na stworzenie skryptu, który wysyła folder \textit{public} na odpowiednią gałąź.
 \par
 Teraz, gdy nasze repozytorium posiada plik konfiguracyjny GitHub Actions, w zakładce \textit{Action} na GitHub'ie powinniśmy zauważyć zakolejkowane zadanie budowania strony.
 \begin{figure}[htbp]
@@ -195,11 +195,11 @@ GitHub wewnętrznie bierze pliki strony z gałęzi, którą ustawiliśmy, i publ
 Dzięki zapewnieniu modułowości, GitHub Actions może pochwalić się dużą biblioteką akcji stworzoną przez społeczeństwo. Oto lista ciekawych akcji:
 \begin{itemize}
   \item jakejarvis/s3-sync-action - jest to akcja, która pozwala synchronizować dany folder repozytorium z folderem na usłudze hostingowej AWS S3. Może być użyteczna, jeżeli chcielibyśmy danej grupie deweloperów dać możliwość wysyłania plików na S3, bez konieczności dawania dostępu do panelu administratora AWS,
-  \item repo-sync/github-sync - akcja ta potrafi synchronizować dane repozytorium z innym repozytorium dostępnym w sieci. Jest ona szczególnie użyteczna, gdy pracujemy nad fork'iem (fork to kopia projektu która rozwija się niezależnie względem oryginału) jakiegoś projektu i chcemy utrzymać zgodność z oryginałem. GitHub Actions pozwala na odpalanie danego procesu automatyzującego automatycznie na podstawie planera. Dzięki temu możemy wykorzystać tą akcję, by co jakiś czas synchronizowała nasze repozytorium z macierzystym projektem,
+  \item repo-sync/github-sync - akcja ta potrafi synchronizować dane repozytorium z innym repozytorium dostępnym w sieci. Jest ona szczególnie użyteczna, gdy pracujemy nad fork'iem (fork to kopia projektu która rozwija się niezależnie względem oryginału) jakiegoś projektu i chcemy utrzymać zgodność z oryginałem. GitHub Actions pozwala na uruchamianie danego procesu automatyzującego automatycznie na podstawie planera. Dzięki temu możemy wykorzystać tą akcję, by co jakiś czas synchronizowała nasze repozytorium z macierzystym projektem,
   \item release-drafter/release-drafter - akcja jest szczególnie użyteczna, jeżeli nasz projekt chce korzystać z dobrych praktyk, dotyczących publikacji oprogramowania. Akcja ta oblicza, jakie zmiany w kodzie nastąpiły od ostatniej publikacji i tworzy wstępną publikację na GitHub'ie z opisem zmian, które dokonaliśmy. Akcja ta jest oparta na commit'ach, dlatego warto by one były dobrze opisane. Jeżeli użyjemy odpowiednich prefixów jak \textit{feature} oraz \textit{bug}, akcja będzie w stanie lepiej sformatować opis publikacji,
   \item zaproxy/action-baseline - jest to akcja, która jest oparta o użycie narzędzia ZAP - to program, który analizuje nasz kod pod względem różnorakich luk bezpieczeństwa. Finalnie jeżeli akcja w wyniku swojego działania znajdzie jakieś podatności to tworzy automatycznie \textit{issue} (system na GitHub'ie, który pozwala śledzić błędy). Jest to ciekawa opcja, jeżeli chcemy jak najbardziej zabezpieczyć się przed ewentualnymi atakami hackerów.
 \end{itemize}
-Wszystkie powyższe rzeczy moglibyśmy wykonać, używając akcji, która odpala skrypt bash'owy. Takie podejście jednak miałoby sporo wad - bylibyśmy zmuszeni spędzić sporo czasu, by wszystko zgrać tak jak chcemy. Dodatkowo prawdopodobnie nie pokrylibyśmy różnych przypadków brzegowych. Dzięki gotowym akcjom czas konfiguracji środowiska do automatyzacji skraca się do minimum, a my możemy się skupić na rozwiązywaniu innych problemów.
+Wszystkie powyższe rzeczy moglibyśmy wykonać, używając akcji, która uruchamia skrypt bash'owy. Takie podejście jednak miałoby sporo wad - bylibyśmy zmuszeni spędzić sporo czasu, by wszystko zgrać tak jak chcemy. Dodatkowo prawdopodobnie nie pokrylibyśmy różnych przypadków brzegowych. Dzięki gotowym akcjom czas konfiguracji środowiska do automatyzacji skraca się do minimum, a my możemy się skupić na rozwiązywaniu innych problemów.
 \subsection{Program graficzny używający WinAPI - przykład użycia GitLab CI}
 Programy z interfejsem graficznym stanowią "lwią" część dostępnych programów dla systemu operacyjnego Windows. Jedną z dróg by tworzyć aplikacje dla Windows'a jest użycie interfejsu programistycznego WinAPI. Sam interfejs WinAPI został zaprojektowany by dobrze działać z językiem programowania C - \cite{WinAPI} aczkolwiek może być on wykorzystywany przez inne języki. Przykładem jest tutaj język C\# który umożliwia tworzenie aplikacji z wykorzystaniem WinAPI. 
 \par
@@ -207,12 +207,12 @@ Jedną z ważnych rzeczy dla systemu Windows jest komunikacja między poszczegó
 \begin{itemize}
   \item HWND hWnd - uchwyt do okna które ma otrzymać wiadomość, jeżeli parametr jest równy informację dostaną wszystkie okna wyższego rzędu,
   \item UINT Msg - typ wiadomości którą chcemy wysłać,
-  \item WPARAM wParam - dodatkowy obiekt z danymi zależny od typu wiadomości,
-  \item LPARAM lParam - dodatkowy obiekt z danymi zależny od typu wiadomości
+  \item WPARAM wParam - dodatkowy obiekt z danymi, zależny od typu wiadomości,
+  \item LPARAM lParam - dodatkowy obiekt z danymi, zależny od typu wiadomości.
 \end{itemize}
 Niektóre Windows'owe programy graficzne za pomocą tej funkcji wysyłają wszelakie logi do aplikacji trzecich. Aplikacje te w ładny sposób prezentują logi. Dzięki takiemu podejściu kod aplikacji głównej jest mniej zawiły ponieważ nie musi on zapewnić interfejsu do wyświetlania takich logów.
 \par
-Przykładem aplikacji którą używa powyższy wzorzec jest gra komputerowa "Gothic II"©. Jeżeli odpalimy główny plik .exe z odpowiednim parametrem to wtedy program za pomocą funkcji \textit{SendMessage} zaczyna wysyłać do wyższych okienek wszelakie logi diagnostyczne. Przykładowe wywołanie Gothic2.exe włączające logi:
+Przykładem aplikacji którą używa powyższy wzorzec jest gra komputerowa "Gothic II"©. Jeżeli uruchomimy główny plik .exe z odpowiednim parametrem to wtedy program za pomocą funkcji \textit{SendMessage} zaczyna wysyłać do wyższych okienek wszelakie logi diagnostyczne. Przykładowe wywołanie Gothic2.exe włączające logi:
 \begin{lstlisting}[caption={Gra Gothic włącza się w trybie okienkowym, bez muzyki i dźwięków oraz z wysyłaniem logów}]
   Gothic2.exe -zwindow -znomusic -znosound -zlog:5,s
 \end{lstlisting}
@@ -229,15 +229,15 @@ Załóżmy, że posiadamy aplikację okienkową do liczenia liczb pierwszych, kt
   \item Jest napisana w języku C++,
   \item Wykorzystuje sito Eratostenesa by wyliczyć liczby pierwsze dla podanego maksimum,
   \item Wysyła logi w formacie JSON za pomocą funkcji \textit{SendMessage},
-  \item Jeżeli odpalimy tą aplikację z poziomu wiersza poleceń i podamy parametr liczbowy to zainicjalizujemy program bez potrzeby podawania z pomocą interfejsu graficznego liczby maksymalnej.
+  \item Jeżeli uruchomimy tę aplikację z poziomu wiersza poleceń i podamy parametr liczbowy to zainicjalizujemy program bez potrzeby podawania z pomocą interfejsu graficznego liczby maksymalnej.
 \end{itemize}
-Chcielibyśmy umożliwić odpalanie tego programu na środowisku serwerowym, które nie posiada kontekstu graficznego. Dodatkowo chcielibyśmy to zrealizować za pomocą platformy GitLab CI która umożliwia odpalenie danego potoku automatyzującego z parametrem dostarczonym przez użytkownika. Dzięki takiej konfiguracji bez konieczności odpalania systemu Windows zyskalibyśmy możliwość odpalania algorytmu, który jest zaimplementowany w aplikacji graficznej.
+Chcielibyśmy umożliwić uruchomienie tego programu na środowisku serwerowym, które nie posiada kontekstu graficznego. Dodatkowo chcielibyśmy to zrealizować za pomocą platformy GitLab CI która umożliwia uruchomienie danego potoku automatyzującego z parametrem dostarczonym przez użytkownika. Dzięki takiej konfiguracji bez konieczności uruchamiania systemu Windows zyskalibyśmy możliwość uruchamiania algorytmu, który jest zaimplementowany w aplikacji graficznej.
 \par
 Sam interfejs graficzny aplikacji jest bardzo prosty. Składa się on z pola tekstowego gdzie użytkownik podaje liczbę, przycisku który uruchamia algorytm oraz pola tekstowego gdzie wyświetlany jest wynik.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=10cm]{graphic-app-preview.png}
-  \caption{Aplikacja do wyznaczania liczb pierwszych odpalona na Windows 10}
+  \caption{Aplikacja do wyznaczania liczb pierwszych uruchomiona na Windows 10}
   \label{fig:gh_pages}
 \end{figure}
 \par
@@ -245,11 +245,11 @@ Teraz chcielibyśmy uruchomić naszą aplikację na środowisku serwerowym. W pr
 \begin{lstlisting}[caption={Pobierania obrazu który ma zainstalowane środowisko wine}]
   docker pull scottyhardy/docker-wine
 \end{lstlisting}
-Cechą tego obrazu jest fakt, że w prosty sposób możemy odpalić w kontenerze serwer RDP (protokół pulpitu zdalnego), który pozwoli połączyć się z kontenerem w sposób graficzny. Jest to przydatne do debugowania. Gdy już odpalimy ten obraz z odpowiednimi parametrami startowymi możemy przetestować jak nasza aplikacja działa na systemie Linux. Załóżmy, że chcielibyśmy zobaczyć liczby pierwsze nie większe niż 14. W tym celu musimy odpalić komendę \textit{wine GraphicApp.exe 14} i poczekać aż wine się zainicjalizuje. Dzieje się to wtedy kiedy komenda \textit{wine} jest użyta po raz pierwszy.
+Cechą tego obrazu jest fakt, że w prosty sposób możemy uruchomić w kontenerze serwer RDP (protokół pulpitu zdalnego), który pozwoli połączyć się z kontenerem w sposób graficzny. Jest to przydatne do debugowania. Gdy już uruchomimy ten obraz z odpowiednimi parametrami startowymi możemy przetestować jak nasza aplikacja działa na systemie Linux. Załóżmy, że chcielibyśmy zobaczyć liczby pierwsze nie większe niż 14. W tym celu musimy wykorzystać komendę \textit{wine GraphicApp.exe 14} i poczekać aż wine się zainicjalizuje. Dzieje się to wtedy kiedy komenda \textit{wine} jest użyta po raz pierwszy.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=13cm]{wine-docker.png}
-  \caption{Aplikacja graficzna odpalona na systemie Linux}
+  \caption{Aplikacja graficzna uruchomiona na systemie Linux}
   \label{fig:wine_docker}
 \end{figure}
 Po chwili powinniśmy zauważyć okienko w którym powinien być wynik dla podanej liczby maksymalnej.
@@ -348,9 +348,9 @@ try {
 \end{lstlisting}
 Jeżeli spojrzymy na linię 13 powyższego listingu to zauważymy kod odpowiedzialny za odbieranie wiadomości z WebSocket'a. Należy mieć na względzie, że protokół WebSocket nie gwarantuje nam, że wiadomość odebrana na serwerze będzie pojedynczą wiadomości wysłaną przez klienta. Może się zdarzyć sytuacja w której dwie wiadomości będą złączone ze sobą. W tym celu w linijce 15 za pomocą wyrażenia regularnego szukamy wiadomości, które spełniają wzorzec formatu z aplikacji graficznej. Kolejne linijki parsują otrzymaną wiadomość oraz wyświetlają ją na ekranie. W linijce 34 informujemy klientów podłączonych do serwera, że aplikacja graficzna skończyła obliczenia. Wysyłając tę wiadomość dajemy znać, że aplikacja graficzna skończyła swoje obliczenia i proces na serwerze może być już zamknięty.
 \par
-Całość projektu uzupełniają dwie mini aplikacje w NodeJS. Celem pierwszej jest czekanie aż aplikacja graficzna będzie już aktywna. Celem drugiej jest czekanie aż pośrednik który przekazuje wiadomości z środowiska WinAPI do WebSocket'ów połączy się z serwerem. Bez tych aplikacji nie możliwa byłaby kontrola procesu odpalanego na serwerze.
+Całość projektu uzupełniają dwie mini aplikacje w NodeJS. Celem pierwszej jest czekanie aż aplikacja graficzna będzie już aktywna. Celem drugiej jest czekanie aż pośrednik który przekazuje wiadomości z środowiska WinAPI do WebSocket'ów połączy się z serwerem. Bez tych aplikacji nie możliwa byłaby kontrola procesu uruchomionego na serwerze.
 \par
-Finalnie odpalenie programu sprowadza się do odpowiedniego odpalania różnych poleceń docker'owych:
+Finalnie uruchomienie programu sprowadza się do odpowiedniego uruchamiania różnych poleceń docker'owych:
 \begin{lstlisting}[caption={.gitlab-ci.yml - konfiguracji procesu automatyzującego}]
 run-calculation:
   image: docker:latest
@@ -382,16 +382,16 @@ run-calculation:
   only:
     - master
 \end{lstlisting}
-Powyższy plik to plik konfiguracyjny GitLab CI. Zawiera on informację o potokach które nasze środowisko ma zawierać. W naszym przypadku mamy tylko jeden potok \textit{run-calculation} który jest odpowiedzialny za odpalanie aplikacji graficznej. Proszę zwrócić, że w linijce 22 odpalamy aplikację graficzną. Dzięki użyciu tutaj parametru środowiskowego \textit{PRIME\_NUMBERS\_LIMIT} zyskujemy możliwość późniejszego odpalenia potoku z dowolną wartością liczbową. Dzięki temu użytkownik będzie mógł zobaczyć działanie programu dla różnych danych wejściowych.
+Powyższy plik to plik konfiguracyjny GitLab CI. Zawiera on informację o potokach które nasze środowisko ma zawierać. W naszym przypadku mamy tylko jeden potok \textit{run-calculation} który jest odpowiedzialny za uruchomienie aplikacji graficznej. Proszę zwrócić, że w linijce 22 uruchamiamy aplikację graficzną. Dzięki użyciu tutaj parametru środowiskowego \textit{PRIME\_NUMBERS\_LIMIT} zyskujemy możliwość późniejszego uruchomienia potoku z dowolną wartością liczbową. Dzięki temu użytkownik będzie mógł zobaczyć działanie programu dla różnych danych wejściowych.
 \par
-Teraz powinniśmy mieć możliwość odpalenie programu z dowolnym parametrem startowym.
+Teraz powinniśmy mieć możliwość włączenia programu z dowolnym parametrem startowym.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=13cm]{gitlab-pipeline.png}
   \caption{Interfejs uruchamiania pipeline'a z zdefiniowanymi parametrami środowiskowymi}
   \label{fig:gitlab_pipeline}
 \end{figure}
-Po odpaleniu danego pipeline'u powinniśmy być w stanie przejrzeć logi, które zostały wypisane na standardowe wyjście. W logach tych powinniśmy dostrzec na końcu wiadomości wysłane z aplikacji graficznej. Dzięki temu jesteśmy w stanie stwierdzić jaki jest wynik działania programu graficznego.
+Po uruchomieniu danego pipeline'u powinniśmy być w stanie przejrzeć logi, które zostały wypisane na standardowe wyjście. W logach tych powinniśmy dostrzec na końcu wiadomości wysłane z aplikacji graficznej. Dzięki temu jesteśmy w stanie stwierdzić jaki jest wynik działania programu graficznego.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=14cm]{gitlab-ci-result.png}

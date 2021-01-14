@@ -8,8 +8,8 @@
 Opisując automatyzację procesów w przemyśle IT konieczne jest opisać wirtualizację czyli kolejny kamień milowy w budowie infrastruktury oraz współczesny sposób wytwarzania i dostarczania oprogramowania. Czym tak właściwie jest wirtualizacja? 
 Żeby dobrze zrozumieć jak istotną rolę odgrywa wirtualizacja w automatyzacji warto spojrzeć wstecz i przyjrzeć się historii serwerów i komputerów w ogóle.   Jak podaje Paul E. Ceruzzi czyli autor książki "A History of Modern Computing", w przeszłości jeśli była potrzeba uruchomienia serwera, były zasadniczo dwie opcje: 
 \begin{itemize}
-    \item zbudować swój własny fizyczny serwer
-    \item wynająć/kupić sprzęt komputerowy od firmy, która takie usługi prowadzi
+    \item zbudować swój własny fizyczny serwer,
+    \item wynająć/kupić sprzęt komputerowy od firmy, która takie usługi prowadzi.
 \end{itemize}
 W pierwszym przypadku budowanie własnego serwera wymaga dużej liczby inżynierów z odpowiednią wiedzą i doświadczeniem, narzędzi oraz materiałów do budowy. Nie każda firma będzie więc spełnić te wszystkie wymagania, dlatego druga opcja stała się więc zdecydowanie bardziej popularna. Pierwszą firmą która skorzystała na trudzie wykonania własnego serwera była firma IBM i tak w 1960 powstał IBM Mainframe, czyli sprzęt najwyższej klasy jak na  ówczesne możliwości.
 
@@ -28,11 +28,11 @@ Jak dokładnie działa zarządzanie zasobami na wirtualnej maszynie?
 Mechanizm dzięki któremu jest możliwa wirtualizacja nazywa się hypervisor. Hypervisor zarządza całym cyklem życia oraz funkcjonalnością wirtualnej maszyny. 
 Do jego głównych zadań należą:
 \begin{itemize}
-    \item alokacja odpowiedniej ilości RAM'u, mocy obliczeniowej, pamięci dyskowej oraz zarządzanie połączeniem z siecią
-    \item startowanie wirtualnej maszyny 
-    \item czyszczenie zasobów po zatrzymaniu wirtualnej maszyny
-    \item zapewnianie izolacji dla działających wirtualnych maszyn
-    \item zarządzanie wirtualnymi maszynami
+    \item alokacja odpowiedniej ilości RAM'u, mocy obliczeniowej, pamięci dyskowej oraz zarządzanie połączeniem z siecią,
+    \item startowanie wirtualnej maszyny,
+    \item czyszczenie zasobów po zatrzymaniu wirtualnej maszyny,
+    \item zapewnianie izolacji dla działających wirtualnych maszyn,
+    \item zarządzanie wirtualnymi maszynami.
 \end{itemize}
 oraz wiele innych. 
 Tak wiec podsumowując, jest jeden bazowy system operacyjny uruchomiony na komputerze, który udostępnia zasoby serwera wirtualnym maszynom i jeśli zasoby na tej wirtualnej maszynie się wyczerpią to nie ma to żadnego wpływu na inne wirtualne maszyny uruchomione na tym serwerze. Dodatkowo pliki między wirtualnymi maszynami nie są współdzielone co sprawia, że jeśli na jednej z wirtualnych maszyn zostanie uruchomiony niebezpieczny skrypt, szkody wyrządzone zostaną ograniczone do jednego systemu, co sprawia, że jest to rozwiązanie relatywnie bezpiecznie.
@@ -95,13 +95,13 @@ Sposób w jaki wykorzystałem cgrupy w naszym kontenerze:
 
     htop # will allow us to see resources being used with a nice visualizer
 
-    yes > /dev/null # this will instantly consume one core's worth of CPU power
+    yes > /dev/null # this will instantly consume one cores worth of CPU power
     yes | tr \\n x | head -c 1048576000 | grep n # this will ramp up to consume ~1GB of RAM
 \end{lstlisting}
 Na ten moment mamy stworzony kontener w najprostszej postaci, a nie poruszyliśmy niezwykle istotnych aspektów jak networking, deploying i building. 
 Jak można zauważyć pisanie wszystkiego ręcznie nie jest trywialnym zadaniem. Dlatego na rynku pojawiły się rozwiązania takie jak Docker do tworzenia, aktualizacji, zarządzania uruchomionymi kontenerami. Dzięki tego typu rozwiązaniom wykorzystanie kontenerów stało się bardzo popularne nie tylko w środowisku administratorów systemów, ale również wśród programistów. 
 \subsection{Obraz Dockera}
-Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization Is the New Virtualization", Obraz Dockera jest to plik złożony z kilku warstw, który jest używany do wykonywania kodu w kontenerze. Jak pisze James, obraz jest zasadniczo zbudowany na podstawie instrukcji dla kompletnej i wykonywalnej wersji aplikacji, która opiera się na jądrze systemu operacyjnego hosta. Kiedy użytkownik Dockera uruchamia obraz, może on stać się jedną lub wieloma instancjami tego kontenera.
+Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization Is the New Virtualization", Obraz Dockera jest to plik złożony z kilku warstw, który jest używany do wykonywania kodu w kontenerze. Jak pisze Turnbull, obraz jest zasadniczo zbudowany na podstawie instrukcji dla kompletnej i wykonywalnej wersji aplikacji, która opiera się na jądrze systemu operacyjnego hosta. Kiedy użytkownik Dockera uruchamia obraz, może on stać się jedną lub wieloma instancjami tego kontenera.
 \subsection{Obraz Dockera bez Dockera}
 \begin{lstlisting}
     # uruchomienie kontenera Dockera z uruchomionym dockerem polaczonym do docker deamona
@@ -135,30 +135,30 @@ Docker oczywiście nie jest jedynym rozwiązaniem usprawniającym działanie kon
 
 Kontenery same w sobie są przydatne w wielu często wykorzystywanych przypadkach, takich jak aplikacje produkcyjne, uczenie się maszyn, tworzenie środowisk, środowisk programistycznych i jednorazowych eksperymentów. Orkiestracja jak podaje Brendan Burns w książce "Designing Distributed Systems" odnosi się do automatycznego rozmieszczania, koordynacji i zarządzania kontenerami z oprogramowaniem. Załóżmy, że budujemy aplikację zbudowaną z wielu mikroserwisów. Zarządzanie wielką architekturą wiąże się z koniecznością implementacji takich rzeczy jak:
 \begin{itemize}
-    \item automatyczne skalowanie kontenerów i ich hostów
-    \item automatyczne restartowanie kontenerów i ich hostów
-    \item automatyczne naprawianie kontenerów i ich hostów
-    \item balansowanie obciążeniem 
-    \item znajdowanie nowo powstałych podów serwisów 
-    \item wdrażanie zmian w kodzie serwisu bez przerywania jego działania 
-    \item sprawdzanie czy pody poprawnie działają
-    \item zarządzanie wrażliwymi danymi
-    \item zarządzanie konfiguracją aplikacji
-    \item komunikacja z bazą danych
+    \item automatyczne skalowanie kontenerów i ich hostów,
+    \item automatyczne restartowanie kontenerów i ich hostów,
+    \item automatyczne naprawianie kontenerów i ich hostów,
+    \item balansowanie obciążeniem,
+    \item znajdowanie nowo powstałych podów serwisów,
+    \item wdrażanie zmian w kodzie serwisu bez przerywania jego działania, 
+    \item sprawdzanie czy pody poprawnie działają,
+    \item zarządzanie wrażliwymi danymi,
+    \item zarządzanie konfiguracją aplikacji,
+    \item komunikacja z bazą danych.
 \end{itemize}
 Jak widać sporo kodu musiałoby zostać napisane, żeby wszystkie te rzeczy zaimplementować. Tu z ratunkiem przychodzą narzędzia do orkiestracji kontenerów, ponieważ często oferują one rozwiązania na większość z tych problemów. Na czas pisania tej pracy na rynku dominują trzy rozwiązania: Kubernetes, AWS ECS oraz Docker Swarm. W dalszej części skupimy się na tym pierwszym czyli Kubernetesie, ponieważ ma on zdecydowanie największą społeczność i w razie potrzeby najłatwiej jest znaleźć szukane informacje.
 
 \subsection{Kubernetes}
 
-Kubernetes (albo jak równie często spotykane k8s. Ósemka znajduje się w nazwie ze względu na taką ilość znaków między k i s w nazwie) podobnie jak Jenkins (który będzie przedmiotem rozważań w następnym rozdziale) jest narzędziem open-source czyli każdy może zobaczyć jej kod źródłowy. Narzędzie to jest platformą zasadniczo oferującą rozwiązania do wszystkich wymienionych problemów, a ponadto można go użyć zarówno w chmurze, lokalnie na fizycznych serwerach oraz rozwiązaniach hybrydowych. Dodatkowo rozwiązanie jest podzielone na moduły i każdy z nich (automatyczne restarty, automatyczne skalowanie i tym podobne) jest, opinią autorów tej pracy i nie tylko, bardzo dobrze zaimplementowany. 
+Kubernetes (albo jak równie często spotykane k8s. Ósemka znajduje się w nazwie ze względu na taką ilość znaków między k i s w nazwie) podobnie jak Jenkins (który będzie przedmiotem rozważań w następnym rozdziale) jest narzędziem open-source. Narzędzie to jest platformą zasadniczo oferującą rozwiązania do wszystkich wymienionych problemów, a ponadto można go użyć zarówno w chmurze, lokalnie na fizycznych serwerach oraz rozwiązaniach hybrydowych. Dodatkowo rozwiązanie jest podzielone na moduły i każdy z nich (automatyczne restarty, automatyczne skalowanie i tym podobne) jest, opinią autorów tej pracy i nie tylko, bardzo dobrze zaimplementowany. 
 Projekt został zapoczątkowany w 2014 roku przez Google i jest połączeniem systemu zarządzania klastrem, który Google wykorzystuje wewnętrznie nazywanym Borg oraz pomysłami i najlepszymi praktykami społeczności.
 Przejdźmy więc go głównych konceptów z których składa się Kubernetes:
 \begin{itemize}
-    \item Master jest serwerem, który koordynuje wszystko inne. To jest mózg klastra. Warto dodać, że niektórzy dostawny chmury publicznej nie pobierają opłat za korzystanie z master serwera na ich infrastrukturze. 
-    \item Node (nie mylić z Node.js) to serwery robocze, które faktycznie będą obsługiwać nasze kontenery. Jeden node może obsługiwać jeden lub wiele kontenerów. Jeśli implementowane jest na przykład uczenie maszynowe i jest potrzeba dużych, rozbudowanych serwerów, aby przejść przez naukę, może się zdarzyć tak, że node może uruchomić tylko jeden kontener. Jeśli natomiast w klastrze znajdują się mniejsze serwisy node może trzymać większą liczbę kontenerów.
-    \item Technicznie rzecz biorąc nody są jedynie docelowym sprzętem, na który wdrażamy nasz produkt. W rzeczy samej może to być wirtualna maszyna, kontener, a nawet fizyczny serwer. 
-    \item Pod - najmniejsza i najprostsza jednostka w modelu obiektowym Kubernetesa, którą można tworzyć lub wdrażać. Reprezentuje ona działający proces w klastrze. Może zawierać jeden lub wiele kontenerów.
-    \item Serwis - jest to grupa podów składająca się na jeden backend. Pody serwisu często są skalowane w górę i w dół więc poleganie na IP kontenera do komunikacji jest mało efektywne. Lepszym rozwiązaniem jest stały adres, do którego docelowe serwisy zawsze mogą się odwoływać i w tym celu właśnie zostały wymyślone serwisy
+    \item Master jest serwerem, który koordynuje wszystko inne. To jest mózg klastra. Warto dodać, że niektórzy dostawny chmury publicznej nie pobierają opłat za korzystanie z master serwera na ich infrastrukturze,
+    \item Node (nie mylić z Node.js) to serwery robocze, które faktycznie będą obsługiwać nasze kontenery. Jeden node może obsługiwać jeden lub wiele kontenerów. Jeśli implementowane jest na przykład uczenie maszynowe i jest potrzeba dużych, rozbudowanych serwerów, aby przejść przez naukę, może się zdarzyć tak, że node może uruchomić tylko jeden kontener. Jeśli natomiast w klastrze znajdują się mniejsze serwisy node może trzymać większą liczbę kontenerów,
+    \item Technicznie rzecz biorąc nody są jedynie docelowym sprzętem, na który wdrażamy nasz produkt. W rzeczy samej może to być wirtualna maszyna, kontener, a nawet fizyczny serwer,
+    \item Pod - najmniejsza i najprostsza jednostka w modelu obiektowym Kubernetesa, którą można tworzyć lub wdrażać. Reprezentuje ona działający proces w klastrze. Może zawierać jeden lub wiele kontenerów,
+    \item Serwis - jest to grupa podów składająca się na jeden backend. Pody serwisu często są skalowane w górę i w dół więc poleganie na IP kontenera do komunikacji jest mało efektywne. Lepszym rozwiązaniem jest stały adres, do którego docelowe serwisy zawsze mogą się odwoływać i w tym celu właśnie zostały wymyślone serwisy,
     \item Deployment - koncept ten polega na definiowaniu stanu podów aplikacji. Po zdefiniowaniu, Kubernetes "pracuje" by doprowadzić i utrzymać aplikację w takim stanie.
 \end{itemize}
 
