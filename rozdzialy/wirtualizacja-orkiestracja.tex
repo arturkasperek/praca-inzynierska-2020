@@ -1,12 +1,8 @@
 \section{Wirtualizacja i orkiestracja}
-% myślę, że opisanie tego jak wirtualizacja pomaga w CI/CD zasługuje na swój rozdział.
-% Szczególnie mógłbym ten rozdział poświęcić dockerowi z faktu, że zdominował rynek.
-% Warto tutaj byłoby napisać też o rozwiązaniach które były używane w przeszłości a zostały wyparte jak vagrant.
-% Dodatkowo w rozdziale mozemy opisać na czym polega orkiestracja - Kubernates, docker swarm
 
 \subsection{Wirtualizacja - początki}
 Opisując automatyzację procesów w przemyśle IT konieczne jest opisać wirtualizację czyli kolejny kamień milowy w budowie infrastruktury oraz współczesny sposób wytwarzania i dostarczania oprogramowania. Czym tak właściwie jest wirtualizacja? 
-Żeby dobrze zrozumieć jak istotną rolę odgrywa wirtualizacja w automatyzacji warto spojrzeć wstecz i przyjrzeć się historii serwerów i komputerów w ogóle.   Jak podaje Paul E. Ceruzzi czyli autor książki "A History of Modern Computing", w przeszłości jeśli była potrzeba uruchomienia serwera, były zasadniczo dwie opcje: 
+Żeby dobrze zrozumieć jak istotną rolę odgrywa wirtualizacja w automatyzacji warto spojrzeć wstecz i przyjrzeć się historii serwerów i komputerów w ogóle.   Jak podaje Paul E. Ceruzzi czyli autor książki "A History of Modern Computing"\cite{Computing}, w przeszłości jeśli była potrzeba uruchomienia serwera, były zasadniczo dwie opcje: 
 \begin{itemize}
     \item zbudować swój własny fizyczny serwer,
     \item wynająć/kupić sprzęt komputerowy od firmy, która takie usługi prowadzi.
@@ -23,7 +19,7 @@ W pierwszym przypadku budowanie własnego serwera wymaga dużej liczby inżynier
 Przez kolejne 20 lat sprzęty komputerowe firmy IBM dominowały rynek. Początkowo na Mainframie można było uruchomić tylko jedną aplikację, co powodowało duże marnowanie zasobów i czasu. Później została dodana wielozadaniowość co znacznie usprawniło działanie sprzętu. W 1980 roku był wielki "boom" technologiczny, który testował możliwości serwera. Szybko się okazało, że utrzymanie serwerów jest kosztowne. Konserwacja sprzętu, miejsce w którym serwery są przechowywane oraz koszty związane z administrowaniem sprawiły, że na rynku pojawiła się potrzeba na technologie wirtualizacyjne i tak w latach 90 XX wieku w wyniku połączenia wydajnych procesów oraz znawców z dziedziny sprzętu komputerowego powstały wirtualne maszyny i wirtualizacja w ogóle. 
 
 \subsection{Czym są wirtualne maszyny?}
-Wirtualne maszyny są kolejną warstwą abstrakcji między użytkownikiem a "metalem", czyli fizycznym sprzętem. Dzięki wykorzystaniu tego mechanizmu, zamiast jednego systemu operacyjnego uruchomionego na komputerze, możliwe jest uruchomienie wielu "gości" systemu operacyjnego na bazowym systemie operacyjnym. Dlaczego to jest takie przydatne? Teraz posiadając jedną mocną maszynę możemy dowolnie dodawać i usuwać serwery. Tak wiec jeśli  teraz dodam dodatkową funkcjonalność do mojego programu, jedyne co muszę zrobić żeby go wdrożyć jest dodanie dodatkowej wirtualnej maszyny na jednym z serwerów, który ma wystarczająco dużo miejsca, żeby to zrobić. To rozwiązanie daje bardzo dużo elastyczności. 
+Wirtualne maszyny są kolejną warstwą abstrakcji między użytkownikiem a "metalem", czyli fizycznym sprzętem. Dzięki wykorzystaniu tego mechanizmu, zamiast jednego systemu operacyjnego uruchomionego na komputerze, możliwe jest uruchomienie wielu "gości" systemu operacyjnego na bazowym systemie operacyjnym. Dlaczego to jest takie przydatne? Teraz posiadając jedną mocną maszynę możemy dowolnie dodawać i usuwać serwery. Tak wiec jeśli  teraz dodamy dodatkową funkcjonalność do naszego programu, jedyne co należy zrobić żeby go wdrożyć jest dodanie dodatkowej wirtualnej maszyny na jednym z serwerów, który ma wystarczająco dużo miejsca, żeby to zrobić. To rozwiązanie daje bardzo dużo elastyczności. 
 Jak dokładnie działa zarządzanie zasobami na wirtualnej maszynie?
 Mechanizm dzięki któremu jest możliwa wirtualizacja nazywa się hypervisor. Hypervisor zarządza całym cyklem życia oraz funkcjonalnością wirtualnej maszyny. 
 Do jego głównych zadań należą:
@@ -101,8 +97,9 @@ Sposób w jaki wykorzystałem cgrupy w naszym kontenerze:
 Na ten moment mamy stworzony kontener w najprostszej postaci, a nie poruszyliśmy niezwykle istotnych aspektów jak networking, deploying i building. 
 Jak można zauważyć pisanie wszystkiego ręcznie nie jest trywialnym zadaniem. Dlatego na rynku pojawiły się rozwiązania takie jak Docker do tworzenia, aktualizacji, zarządzania uruchomionymi kontenerami. Dzięki tego typu rozwiązaniom wykorzystanie kontenerów stało się bardzo popularne nie tylko w środowisku administratorów systemów, ale również wśród programistów. 
 \subsection{Obraz Dockera}
-Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization Is the New Virtualization", Obraz Dockera jest to plik złożony z kilku warstw, który jest używany do wykonywania kodu w kontenerze. Jak pisze Turnbull, obraz jest zasadniczo zbudowany na podstawie instrukcji dla kompletnej i wykonywalnej wersji aplikacji, która opiera się na jądrze systemu operacyjnego hosta. Kiedy użytkownik Dockera uruchamia obraz, może on stać się jedną lub wieloma instancjami tego kontenera.
+Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization Is the New Virtualization"\cite{Docker}, Obraz Dockera jest to plik złożony z kilku warstw, który jest używany do wykonywania kodu w kontenerze. Jak pisze Turnbull, obraz jest zasadniczo zbudowany na podstawie instrukcji dla kompletnej i wykonywalnej wersji aplikacji, która opiera się na jądrze systemu operacyjnego hosta. Kiedy użytkownik Dockera uruchamia obraz, może on stać się jedną lub wieloma instancjami tego kontenera.
 \subsection{Obraz Dockera bez Dockera}
+Ostateczną wersję jak nasz kontener powinien wyglądać definiuje obraz, z którego został on wykonany. Docker jedynie usprawnia budowanie tych obrazów, natomiast proces ten mógłby zostać wykonany zupełnie bez Dockera. W przykładzie poniżej pokażemy w jaki sposób można rozłożyć kontener na czynniki pierwsze żeby zobrazować jak dużo pracy wykonuje za nas Docker.
 \begin{lstlisting}
     # uruchomienie kontenera Dockera z uruchomionym dockerem polaczonym do docker deamona
     docker run -ti -v /var/run/docker.sock:/var/run/docker.sock --privileged --rm --name docker-host docker:18.06.1-ce
@@ -118,12 +115,14 @@ Jak podaje James Turnbull w swojej książce "The Docker Book: Containerization 
     tar xf dockercontainer.tar -C container-root/
 
     # przypisanie przestrzeni nazw
-    unshare --mount --uts --ipc --net --pid --fork --user --map-root-user chroot $PWD/container-root ash 
+    unshare --mount --uts --ipc --net --pid --fork --user --map-root-user chroot
+    $PWD/container-root ash 
     mount -t proc none /proc
     mount -t sysfs none /sys
     mount -t tmpfs none /tmp
-
+    # ustawianie cgroup oraz innych ustawien obrazu
 \end{lstlisting}
+
 
 \subsection{Docker Image z Dockerem}
 docker run -it alpine:3.10
@@ -133,7 +132,7 @@ Docker oczywiście nie jest jedynym rozwiązaniem usprawniającym działanie kon
 
 \subsection{Orkiestracja}
 
-Kontenery same w sobie są przydatne w wielu często wykorzystywanych przypadkach, takich jak aplikacje produkcyjne, uczenie się maszyn, tworzenie środowisk, środowisk programistycznych i jednorazowych eksperymentów. Orkiestracja jak podaje Brendan Burns w książce "Designing Distributed Systems" odnosi się do automatycznego rozmieszczania, koordynacji i zarządzania kontenerami z oprogramowaniem. Załóżmy, że budujemy aplikację zbudowaną z wielu mikroserwisów. Zarządzanie wielką architekturą wiąże się z koniecznością implementacji takich rzeczy jak:
+Kontenery same w sobie są przydatne w wielu często wykorzystywanych przypadkach, takich jak aplikacje produkcyjne, uczenie się maszyn, tworzenie środowisk, środowisk programistycznych i jednorazowych eksperymentów. Orkiestracja jak podaje Brendan Burns w książce "Designing Distributed Systems"\cite{DistributedSystems} odnosi się do automatycznego rozmieszczania, koordynacji i zarządzania kontenerami z oprogramowaniem. Załóżmy, że budujemy aplikację zbudowaną z wielu mikroserwisów. Zarządzanie wielką architekturą wiąże się z koniecznością implementacji takich rzeczy jak:
 \begin{itemize}
     \item automatyczne skalowanie kontenerów i ich hostów,
     \item automatyczne restartowanie kontenerów i ich hostów,

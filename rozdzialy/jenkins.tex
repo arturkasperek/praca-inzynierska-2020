@@ -1,12 +1,7 @@
 \section{Hudson oraz Jenkins - klasyczne narzędzia do CI/CD}
-% tutaj mógłbym zamieścić trochę informacji historycznych jak język java zrewolucjonował inżynierię oprogramowania i dalej rozwinąć, że pokłosiem tego było powstanie Jenkinsa.
-% Myślę, że mógłbym tutaj opisać najbardziej uniwersalne rzeczy które są w nim używane. Wydaje mi się że mógłbym poszukać alternatyw do Jenkinsa by rozszerzyć ten dział.
-% Jako część tego rozdziału mógłbym zawrzeć problem gdzie konieczne jest użycie Jenkinsa i to byłoby zrobione jako część praktyczna.
-% Wbrew pozorom do niektórych zastosować Jenkins nadal jest używany, np do środowisk gdzie QA musi odpalać                    
-
 \subsection{Inżynieria oprogramowania}
 Kolejny rozdział tej pracy inżynierskiej poświęcimy na opisanie aspektów automatyzacji w procesach tworzenia oprogramowania. 
-Jako wprowadzenie do tego rozdziału kolejny raz chciałbym na podstawie książki "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win" autorstwa Gene Kim i Kevin Behr pokazać jak popularyzacja komputerów spowodowała zapotrzebowanie na nowe technologie. 
+Jako wprowadzenie do tego rozdziału chcielibyśmy na podstawie książki "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win" autorstwa Gene Kim i Kevin Behr\cite{PhoenixProject} pokazać jak popularyzacja komputerów spowodowała zapotrzebowanie na nowe technologie. 
 Z biegiem czasów gdy komputery stawały się coraz to bardziej popularne, powstawało coraz więcej aplikacji czy to desktopowych czy to webowych. Coraz więcej programistów i aplikacji pojawiało się na rynku. Powstawało wiele firm tworzących oprogramowanie i w związku z dużą konkurencyjnością, firmy wymyślały nowe sposoby poprawy wdrażania oprogramowania, sprawdzania jakości kodu, dostępności infrastruktury oraz poprawy wydajności kodu, po to by wyróżnić się na konkurencyjnym rynku. Coraz to większą rolę w środowisku IT zaczęli odgrywać  DevOpsi, czyli jak podają autorzy książki, osoby tworzące równowagę pomiędzy działami wytwarzania oprogramowania i zarządzania systemami.  
 
 
@@ -30,7 +25,7 @@ Na potwierdzenie słuszności naszego wyboru warto dodać, że narzędzie to w 2
 \subsection{Projekt}
 
 Celem projektu jest przybliżenie możliwości automatyzacji na podstawie nowoczesnego narzędzia codziennie wykorzystywanego w świecie IT. Tym narzędziem będzie Jenkins. 
-Na potrzeby tego projektu stworzę również prostą aplikację Spring Boot, która będzie implementowała podstawowe założenia API RESTful. Jenkins oraz aplikacja w nawiązaniu do poprzedniego rozdziału tej pracy będą uruchomione w kontenerach. Celem tego zabiegu jest zaprezentowanie działania tego narzędzia. 
+Na potrzeby tego projektu stworzymy również prostą aplikację Spring Boot, która będzie implementowała podstawowe założenia API RESTful. Jenkins oraz aplikacja w nawiązaniu do poprzedniego rozdziału tej pracy będą uruchomione w kontenerach. Celem tego zabiegu jest zaprezentowanie działania tego narzędzia. 
 
 \subsection{Jenkins}
 
@@ -52,9 +47,9 @@ Jenkins nie zawsze nosił nazwę taką jak dziś. Został stworzony przez pracow
 
 \subsection{Architectura}
 
-Aby dobrze zrozumieć jak działa narzędzie, w tym rozdziale opiszę co się stanie jeśli developer zapisze zmiany na repozytorium, przedstawię przykładową implementację metodologii ciągłej integracji/ciągłego wdrażania w Jenkinsie oraz opiszę jak wygląda architektura Master-Slave.
+Aby dobrze zrozumieć jak działa narzędzie, w tym rozdziale opiszemy co się stanie jeśli developer zapisze zmiany na repozytorium, przedstawimy przykładową implementację metodologii ciągłej integracji/ciągłego wdrażania w Jenkinsie oraz opiszemy jak wygląda architektura Master-Slave.
 
-Według Johna Smart, czyli autora książki "Jenkins: The Definitive Guide" istnieje kilka kroków, które opisują jak działa komunikacja między elementami w Jenkinsie: 
+Według Johna Smart, czyli autora książki "Jenkins: The Definitive Guide"\cite{Jenkins} istnieje kilka kroków, które opisują jak działa komunikacja między elementami w Jenkinsie: 
 \begin{itemize}
     \item inżynier zmienia kod źródłowy aplikacji i zapisuje zmiany do repozytorium,
     \item repozytorium jest regularnie sprawdzane przez serwer Jenkins CI i w razie jakiś zmian ten sam serwer pobiera je do dalszej pracy,
@@ -104,7 +99,7 @@ Do głównych zadań slave'a należą:
     \label{fig:master-slave}
 \end{figure}
 
-Jak do tej pory pokrótce opisaliśmy za co odpowiedzialne są poszczególne komponenty w Jenkinsie. Przedstawię teraz przykładową architekturę oraz opiszę za co są odpowiedzialne poszczególne jej elementy 
+Jak do tej pory pokrótce opisaliśmy za co odpowiedzialne są poszczególne komponenty w Jenkinsie. Przedstawimy teraz przykładową architekturę oraz opiszemy za co są odpowiedzialne poszczególne jej elementy 
 
 \begin{figure}[htbp]
     \centering
@@ -124,7 +119,7 @@ W dalszej części pracy zaprezentujemy przykładowe zastosowanie tego narzędzi
 
 \subsection{Aplikacja}
 
-Aplikacja implementuje REST api i będzie wyświetlała imię użytkownika podane do path URL. Projekt posiada proste pliki java w których jest umieszczona logika naszej aplikacji oraz pliki Maven'a do budowania naszej aplikacji. Tak oto wygląda kod pliku pom.xml 
+Aplikacja implementuje REST api i będzie wyświetlała imię użytkownika podane do path URL. Projekt posiada proste pliki java, w których jest umieszczona logika naszej aplikacji oraz pliki Maven'a do budowania naszej aplikacji. Tak wygląda kod pliku pom.xml:
 
 \begin{lstlisting}
     <?xml version="1.0" encoding="UTF-8"?>
@@ -185,7 +180,7 @@ W pliku tym znajdują się zależności jak i wtyczki Spring Boot potrzebne do d
 
 Dockerfile jest to specyficzny plik, który pozwala nam zdefiniować jak powinien wyglądać nasz kontener. Każda linia w Dockerfile to osobna instrukcja, która opisuje jak powinien wyglądać końcowy kontener. 
 
-Na początku konieczne jest zbudowanie naszego programu, żeby można było go wykorzystać w naszym dockerfile. W tym celu użyję komendy ./mvnw clean package, która skompiluje nasz kod i spakuje go do pliku wykonywalnego rest-service-0.0.1-SNAPSHOT.jar. Plik ten będzie wykorzystywany w naszym Dockerfile. 
+Na początku konieczne jest zbudowanie naszego programu, żeby można było go wykorzystać w naszym dockerfile. W tym celu użyjemy komendy ./mvnw clean package, która skompiluje nasz kod i spakuje go do pliku wykonywalnego rest-service-0.0.1-SNAPSHOT.jar. Plik ten będzie wykorzystywany w naszym Dockerfile. 
 
 \begin{lstlisting}
     FROM openjdk:8-jdk-alpine
@@ -198,7 +193,7 @@ Na początku konieczne jest zbudowanie naszego programu, żeby można było go w
 
 Każda linia tego pliku dodaje dodatkową funkcjonalność do naszego projektu, więc warto wyjaśnić co w każdej linii się znajduje. W pierwszej linii importujemy dostępny w oficjalnym repozytorium Dockera linuxowy obraz alpine wraz z zainstalowanym na nim openjdk. Alpine Linux jest to podstawowy system operacyjny charakteryzujący się prostotą oraz małym rozmiarem pojemności dyskowej jaką zajmuje. Nie posiada on zbędnych bibliotek, które niepotrzebnie zajmowałyby miejsce na naszym kontenerze, stąd też nasz wybór padł właśnie na ten kontener. Następnie dodajemy wcześniej spakowany plik jar, który znajduje się w folderze /target. Kolejno zaznaczamy jaka komenda powinna zostać uruchomiona po uruchomieniu kontenera oraz udostępniamy port 2222 do dostępu publicznego. 
 
-Kolejno w konsoli użyłem trzech komend, aby zbudować nasz projekt i uruchomić go w kontenerze. 
+Kolejno w konsoli użyliśmy trzech komend, aby zbudować nasz projekt i uruchomić go w kontenerze. 
 \begin{lstlisting}
     mvn clean install 
     docker build -t pracainzynierka
@@ -211,7 +206,7 @@ W dalszej części pracy inżynierskiej zautomatyzujemy ten proces przy pomocy J
 
 Jako, że użyliśmy dockera by uruchomić naszą aplikację lokalnie, nic nie stoi na przeszkodzie by również użyć Dockera do pracy z Jenkinsem. Problemem jaki napotkaliśmy podczas implementacji tego rozwiązania polegał na braku komend dockera wewnątrz kontenera, dlatego trzeba było dodać kilka warstw do naszego Jenkinsowego Dockerfile by umożliwić taką funkcjonalność. 
 
-finalna wersja pliku Dockera wygląda następująco: 
+Finalna wersja pliku Dockera wygląda następująco: 
 
 \begin{lstlisting}
     from jenkins/jenkins:lts
@@ -267,7 +262,7 @@ Głównymi narzędziami, które będzie trzeba skonfigurować jest JDK, Maven or
 
 
 \subsection{Jenkinsfile} 
-Jenkinsfile jest plikiem, w którym definiujemy wszystkie kroki, które mają zostać podjęte w ramach Jenkins pipeline. Mamy również możliwość wyboru, które zadania na jakich slave'ach mają zostać wykonane oraz inne metody konfiguracji pipline'u
+Jenkinsfile jest plikiem, w którym definiujemy wszystkie kroki, które mają zostać podjęte w ramach Jenkins pipeline. Mamy również możliwość wyboru, które zadania na jakich slave'ach mają zostać wykonane oraz inne metody konfiguracji pipline'u.
 
 W naszym projekcie plik ten składa się z czterech następujących kroków:
 
