@@ -52,7 +52,7 @@
 
 
 %% każdy autor musi mieć 3 argumenty: imię nazwisko, nr albumu, opis wkładu
-\autor{Artur Kasperek}{259059}{33}{przygotowanie wstępu o przemyśle IT, przygotowaniu rozdziału o SaaS CI/CD, przygotowanie aplikacji do publikacji strony z pomocą GitHub Actions, przygotowanie aplikacji graficznej odpalanej na GitLab CI}
+\autor{Artur Kasperek}{259059}{33}{przygotowanie wstępu o przemyśle IT, przygotowaniu rozdziału o SaaS CI/CD, przygotowanie aplikacji do publikacji strony z pomocą GitHub Actions, przygotowanie aplikacji graficznej uruchamianej na GitLab CI}
 \autor{Michał Płonka}{275315}{33}
 {przygotowanie rozdziału teoretycznego o testach i ciągłej integracji,
 przygotowanie działającego przykładu wykorzystania CI na platformie GitHub,
@@ -82,6 +82,9 @@ korekta pracy}
 \newtheorem{twa}{Twierdzenie}%[section]
 \newtheorem{dd}{Definicja}%[subsection]
 
+\hyphenation{WinAPI GitLab GitHub BitBucket Pages CircleCI}
+
+
 \begin{document}
 Celem pracy jest rozpatrzenie aspektów automatyzacji w branży IT. Pojęcie automatyzacji jest dość rozległe i wiąże się z wieloma aspektami świata IT, dlatego w tej pracy na początku ogólnie scharakteryzujemy czym jest ta branża oraz jaką rolę odgrywa w niej automatyzacja. W pierwszej części opiszemy: rolę automatyzacji w zwinnych procesach wytwarzania oprogramowania, jak zmieniało się to podejście na przestrzeni czasu oraz współczesne podejście do tego zagadnienia. Następnie skupimy się na komputerach i przedstawimy jak wirtualizacja na równi z orkiestracją odmieniły sposób wdrażania oprogramowania. 
 
@@ -104,25 +107,27 @@ Ogólnym celem naszej pracy jest odpowiedzenie na pytanie, jaką rolę odgrywa a
 \begin{thebibliography}{12}
 
 \bibitem{AgileManifesto} Kent Beck; James Grenning; Robert C. Martin; Mike Beedle; Jim Highsmith; Steve Mellor; Arie van Bennekum; Andrew Hunt; Ken Schwaber; Alistair Cockburn; Ron Jeffries; Jeff Sutherland; Ward Cunningham; Jon Kern; Dave Thomas; Martin Fowler; Brian Marick (2001). "Principles behind the Agile Manifesto"
-\bibitem{DevOpsBook} Bass, Len; Weber, Ingo; Zhu, Liming. Wydawnictwo "Addison-Wesley Professional" (2015). DevOps: A Software Architect's Perspective
+\bibitem{DevOpsBook} Bass, Len; Weber, Ingo; Zhu, Liming. Wydawnictwo Addison-Wesley Professional (2015). "DevOps: A Software Architect's Perspective"
 \bibitem{TravisCI} Mathias Meyer (2015)  "How We Improved the Installation and Update Experience for Travis CI Enterprise" \url{https://blog.travis-ci.com/2015-06-19-how-we-improved-travis-ci-installation/}
+
+\bibitem{TravisCI} Mathias Meyer (2015)  "How We Improved the Installation and Update Experience for Travis CI Enterprise" \url{https://blog.travis-ci.com/2015-06-19-how-we-improved-travis-ci-installation/}
+\bibitem{Computer Systems} Randal Bryant. Wydawnictwo Pearson (2013). "Computer Systems: A Programmer's Perspective"
+\bibitem{Computing} Paul E. Ceruzzi. Wydawnictwo The MIT Press (2003). "A History of Modern Computing"
+\bibitem{Docker} James Turnbull. Wydawnictwo James Turnbull (2014). "The Docker Book: Containerization Is the New Virtualization"
+\bibitem{DistributedSystems} Brendan Burns. Wydawnictwo O'Reilly Media (2018). "Designing Distributed Systems"
+\bibitem{PhoenixProject} Gene Kim, Kevin Behr, George Spafford. Wydawnictwo IT Revolution Press (2013). "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win"
+\bibitem{Jenkins} John Ferguson Smart. Wydawnictwo O'Reilly Media (2011). "Jenkins: The Definitive Guide"
+\bibitem{PragmaticProgrammer} Andrew Hunt, David Thomas. Wydawnictwo Addison-Wesley Professional (1999). "The Pragmatic Programmer"
+\bibitem{GatsbyJSWordpress} Praca zbiorcza twórców GatsbyJS "Sourcing from WordPress" \url{https://www.gatsbyjs.com/docs/sourcing-from-wordpress/}
+\bibitem{GithubActionsDoc} Autor nieznany "GitHub Actions Reference" \url{https://docs.github.com/en/free-pro-team@latest/actions/reference}
+\bibitem{WinAPI} Microsoft, Dokumentacja "Walkthrough: Creating Windows Desktop Applications (C++)" \url{https://docs.microsoft.com/en-us/previous-versions/bb384843(v=vs.140)}
 \bibitem{UnitOpinions} kayis (2018)"What are the alternatives to unit tests?" \url{https://dev.to/kayis/what-are-the-alternatives-to-unit-tests-2jii}
 \bibitem{UnitResults} kayis (2018) "The Dev.to-Community's Opinion about Unit-Tests" \url{https://dev.to/kayis/the-devtos-opinion-about-unit-tests-1md2}
 \bibitem{UnitDefinition} Roy Osherove (2011) "Unit Test - Definition" \url{https://www.artofunittesting.com/definition-of-a-unit-test/}
-\bibitem{TestDrivenDevelopment} Kent Beck (2002). "Test Driven Development: By Example"
-\bibitem{BehaviourDrivenDevelopment} Dan North (marzec 2006). Magazyn "Better Software" \url{https://dannorth.net/introducing-bdd/}
+\bibitem{TestDrivenDevelopment} Kent Beck. Wydawnictwo Addison-Wesley Professional (2002). "Test Driven Development: By Example"
+\bibitem{BehaviourDrivenDevelopment} Dan North. Magazyn "Better Software" (marzec 2006) \url{https://dannorth.net/introducing-bdd/}
 \bibitem{RegressionTesting} GURU99, "What is Regression Testing? Definition, Test Cases (Example)" \url{https://www.guru99.com/regression-testing.html}
 \bibitem{GitLabTesting} GitLab, Dokumentacja "Testing levels" \url{https://docs.gitlab.com/ee/development/testing\_guide/testing\_levels.html}
-\bibitem{TravisCI} Mathias Meyer (2015)  "How We Improved the Installation and Update Experience for Travis CI Enterprise" https://blog.travis-ci.com/2015-06-19-how-we-improved-travis-ci-installation/
-\bibitem{GatsbyJSWordpress} Praca zbiorcza twórców GatsbyJS "Sourcing from WordPress" https://www.gatsbyjs.com/docs/sourcing-from-wordpress/
-\bibitem{GithubActionsDoc} Autor nieznany "GitHub Actions Reference" https://docs.github.com/en/free-pro-team@latest/actions/reference
-\bibitem{Computing} Paul E. Ceruzzi "A History of Modern Computing"
-\bibitem{Computer Systems} Randal Bryant "Computer Systems: A Programmer's Perspective"
-\bibitem{Docker} James Turnbull "The Docker Book: Containerization Is the New Virtualization"
-\bibitem{PragmaticProgrammer} Andrew Hunt, David Thomas "The Pragmatic Programmer"
-\bibitem{DevOps} Gene Kim, Kevin Behr "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win"
-\bibitem{Jenkins} John Smart "Jenkins: The Definitive Guide"
-\bibitem{WinAPI} Microsoft, Dokumentacja "Walkthrough: Creating Windows Desktop Applications (C++)" \url{https://docs.microsoft.com/en-us/previous-versions/bb384843(v=vs.140)}
 
 \end{thebibliography}
 \end{document}
