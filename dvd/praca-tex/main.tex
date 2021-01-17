@@ -1,0 +1,133 @@
+\documentclass[twoside]{projektInzynierskiMS}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{url}
+
+% kolorowanie javascriptu:
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, let, const, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{white},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+% koniec kolorownia javascriptu:
+
+\graphicspath{ {./images/} }
+%\drukJednostronny
+
+%% tytuł promotor iautor (\title to komenda standardowa)
+\title{Automatyzacja procesów w przemyśle IT}
+\promotor{dr inż. Zdzisław Sroczyński}
+
+
+%% każdy autor musi mieć 3 argumenty: imię nazwisko, nr albumu, opis wkładu
+\autor{Artur Kasperek}{259059}{33}{przygotowanie wstępu o przemyśle IT, przygotowaniu rozdziału o SaaS CI/CD, przygotowanie aplikacji do publikacji strony z pomocą GitHub Actions, przygotowanie aplikacji graficznej uruchamianej na GitLab CI}
+\autor{Michał Płonka}{275315}{33}
+{przygotowanie rozdziału teoretycznego o testach i ciągłej integracji,
+przygotowanie działającego przykładu wykorzystania CI na platformie GitHub,
+przygotowanie podsumowania,
+korekta pracy}
+\autor{Patryk Musiol}{275306}{33}{przygotowanie projektu Jenkins, przygotowanie rozdziału o wirtualizacji oraz Jenkinsie, przygotowanie wstępu}
+
+
+%% dedykacja mile widziana
+% \dedykacja{To jest\\dedykacja}
+%\NumeryNaPoczatku
+%% numeracja wzorów tu włączona typu (1.2.3), ta druga to typu (1.2), domyślnie typu (1)
+%\subsectionWzory
+% \sectionWzory
+
+%\rozdzialy
+
+
+%\literowaNumeracjaDodatkow %% włączy numerację dodatków literami
+%\rzymskaNumeracjaDodatkow  %%włączy numerację dodatków liczbami rzymskimi
+
+%% wyłączenie wyjaśnień:
+\bezWyjasnien
+
+%% standardowe komendy \newtheorem  działają jak woryginale
+\newtheorem{tw}{Twierdzenie}%[subsection]
+\newtheorem{twa}{Twierdzenie}%[section]
+\newtheorem{dd}{Definicja}%[subsection]
+
+\hyphenation{WinAPI GitLab GitHub BitBucket Pages CircleCI}
+
+
+\begin{document}
+Celem pracy jest rozpatrzenie aspektów automatyzacji w branży IT. Pojęcie automatyzacji jest dość rozległe i wiąże się z wieloma aspektami świata IT, dlatego w tej pracy na początku ogólnie scharakteryzujemy czym jest ta branża oraz jaką rolę odgrywa w niej automatyzacja. W pierwszej części opiszemy: rolę automatyzacji w zwinnych procesach wytwarzania oprogramowania, jak zmieniało się to podejście na przestrzeni czasu oraz współczesne podejście do tego zagadnienia. Następnie skupimy się na komputerach i przedstawimy jak wirtualizacja na równi z orkiestracją odmieniły sposób wdrażania oprogramowania. 
+
+Trzeci rozdział jest bardziej praktyczny ponieważ to w nim przedstawimy przykładowy scenariusz wykorzystania narzędzia do automatyzacji o nazwie Jenkins. Projekt ten będzie automatyzował proces budowania aplikacji opartej na architekturze kontenerowej.
+
+Czwarty rozdział to opis dostępnych platform "software as a service" stworzonych do realizacji idei ciągłej integracji oraz ciągłego wdrażania. 
+
+W kolejny, piątym już rozdziale, bliżej przyjrzymy się wykorzystaniu testów i ich roli w tworzeniu oprogramowania w dzisiejszych czasach. 
+
+Ogólnym celem naszej pracy jest odpowiedzenie na pytanie, jaką rolę odgrywa automatyzacja w IT i jak jest implementowana, co postaramy się podsumować w ostatnim rozdziale naszego tekstu.
+
+
+\input{rozdzialy/wstep.tex}
+\input{rozdzialy/wirtualizacja-orkiestracja.tex}
+\input{rozdzialy/jenkins.tex}
+\input{rozdzialy/saas-ci-cd.tex}
+\input{rozdzialy/testy-ci.tex}
+\input{rozdzialy/podsumowanie.tex}
+
+\begin{thebibliography}{12}
+
+\bibitem{AgileManifesto} Kent Beck; James Grenning; Robert C. Martin; Mike Beedle; Jim Highsmith; Steve Mellor; Arie van Bennekum; Andrew Hunt; Ken Schwaber; Alistair Cockburn; Ron Jeffries; Jeff Sutherland; Ward Cunningham; Jon Kern; Dave Thomas; Martin Fowler; Brian Marick (2001). "Principles behind the Agile Manifesto"
+\bibitem{DevOpsBook} Bass, Len; Weber, Ingo; Zhu, Liming. Wydawnictwo Addison-Wesley Professional (2015). "DevOps: A Software Architect's Perspective"
+\bibitem{TravisCI} Mathias Meyer (2015)  "How We Improved the Installation and Update Experience for Travis CI Enterprise" \url{https://blog.travis-ci.com/2015-06-19-how-we-improved-travis-ci-installation/}
+
+\bibitem{TravisCI} Mathias Meyer (2015)  "How We Improved the Installation and Update Experience for Travis CI Enterprise" \url{https://blog.travis-ci.com/2015-06-19-how-we-improved-travis-ci-installation/}
+\bibitem{Computer Systems} Randal Bryant. Wydawnictwo Pearson (2013). "Computer Systems: A Programmer's Perspective"
+\bibitem{Computing} Paul E. Ceruzzi. Wydawnictwo The MIT Press (2003). "A History of Modern Computing"
+\bibitem{Docker} James Turnbull. Wydawnictwo James Turnbull (2014). "The Docker Book: Containerization Is the New Virtualization"
+\bibitem{DistributedSystems} Brendan Burns. Wydawnictwo O'Reilly Media (2018). "Designing Distributed Systems"
+\bibitem{PhoenixProject} Gene Kim, Kevin Behr, George Spafford. Wydawnictwo IT Revolution Press (2013). "The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win"
+\bibitem{Jenkins} John Ferguson Smart. Wydawnictwo O'Reilly Media (2011). "Jenkins: The Definitive Guide"
+\bibitem{PragmaticProgrammer} Andrew Hunt, David Thomas. Wydawnictwo Addison-Wesley Professional (1999). "The Pragmatic Programmer"
+\bibitem{GatsbyJSWordpress} Praca zbiorcza twórców GatsbyJS "Sourcing from WordPress" \url{https://www.gatsbyjs.com/docs/sourcing-from-wordpress/}
+\bibitem{GithubActionsDoc} Autor nieznany "GitHub Actions Reference" \url{https://docs.github.com/en/free-pro-team@latest/actions/reference}
+\bibitem{WinAPI} Microsoft, Dokumentacja "Walkthrough: Creating Windows Desktop Applications (C++)" \url{https://docs.microsoft.com/en-us/previous-versions/bb384843(v=vs.140)}
+\bibitem{UnitOpinions} kayis (2018)"What are the alternatives to unit tests?" \url{https://dev.to/kayis/what-are-the-alternatives-to-unit-tests-2jii}
+\bibitem{UnitResults} kayis (2018) "The Dev.to-Community's Opinion about Unit-Tests" \url{https://dev.to/kayis/the-devtos-opinion-about-unit-tests-1md2}
+\bibitem{UnitDefinition} Roy Osherove (2011) "Unit Test - Definition" \url{https://www.artofunittesting.com/definition-of-a-unit-test/}
+\bibitem{TestDrivenDevelopment} Kent Beck. Wydawnictwo Addison-Wesley Professional (2002). "Test Driven Development: By Example"
+\bibitem{BehaviourDrivenDevelopment} Dan North. Magazyn "Better Software" (marzec 2006) \url{https://dannorth.net/introducing-bdd/}
+\bibitem{RegressionTesting} GURU99, "What is Regression Testing? Definition, Test Cases (Example)" \url{https://www.guru99.com/regression-testing.html}
+\bibitem{GitLabTesting} GitLab, Dokumentacja "Testing levels" \url{https://docs.gitlab.com/ee/development/testing\_guide/testing\_levels.html}
+
+\end{thebibliography}
+\end{document}
